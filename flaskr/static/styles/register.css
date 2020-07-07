@@ -1,0 +1,45 @@
+body{
+    background-image: url('/static/img/13.png');
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-attachment: fixed; 
+    width: 100%;
+}
+.warper-form{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10%;
+    background-color: rgba(29, 48, 153, 0.267);
+    height: 312px;
+    width: 308px;
+    padding: 37px;
+}
+.form-continar{
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    justify-content: space-evenly;
+}
+
+.input-continer{
+    display: flex;
+    justify-content: space-between;    
+}
+.input-continer input{
+    margin-left: 20px;
+}
+.submit-button{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10%;
+}
+.error{
+    position: absolute;
+    white-space: nowrap;
+    color: red;
+    left: 200px;
+    margin-top: 25px;
+    font-size: 13px;
+}
