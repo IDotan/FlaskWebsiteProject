@@ -13,4 +13,4 @@ class User(users_db.Model):
     gender = users_db.Column(users_db.Integer)  # 1.Male 2.Female
     psw_reset = users_db.Column(users_db.String(1000))
     psw_reset_time = users_db.Column(users_db.Integer)
-
+    user_pic = users_db.Column(users_db.String(100))

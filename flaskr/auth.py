@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session, g
 from functools import wraps
 from . import users_db
-from .register_validater import check_form_data
+from flaskr.python_scripts.register_validater import check_form_data
 from .models import User
 from passlib.hash import sha256_crypt
+from .static.scripts.random_pic_picker import pick_my_pic
 
 
 __author__ = "Itai Dotan"
@@ -72,7 +73,7 @@ def signup_post():
         return render_template('register.html')
 
     new_user = User(user_name=user_name, password=sha256_crypt.hash(psw), email=mail, first_name=f_name,
-                    last_name=l_name, gender=gender)
+                    last_name=l_name, gender=gender, user_pic=pick_my_pic())
     users_db.session.add(new_user)
     users_db.session.commit()
 
