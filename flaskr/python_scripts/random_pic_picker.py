@@ -20,4 +20,4 @@ def pick_my_pic(path=r"./flaskr/static/img/randomProfile"):
 
 if __name__ == "__main__":
     """just to run and quick test the out put"""
-    print((pick_my_pic(r"../img/randomProfile")))
+    print((pick_my_pic(r"../static/img/randomProfile")))

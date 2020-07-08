@@ -4,7 +4,7 @@ from . import users_db
 from flaskr.python_scripts.register_validater import check_form_data
 from .models import User
 from passlib.hash import sha256_crypt
-from .static.scripts.random_pic_picker import pick_my_pic
+from flaskr.python_scripts.random_pic_picker import pick_my_pic
 
 
 __author__ = "Itai Dotan"
