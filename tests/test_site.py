@@ -79,6 +79,6 @@ def test_register_page_post3(client):
 def test_register_page_post4(client):
     rv = client.post('/register', data=dict(username="itai3", psw="Hello*1234", email="test@test.com", fname='name',
                                             lname="name", gender=1), follow_redirects=True)
-    assert b'Welcome' in rv.data
+    assert b'Welcome name' in rv.data
 
 
