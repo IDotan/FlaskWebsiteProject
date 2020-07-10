@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, g, url_for
-from .auth import check_session
+from .auth import check_session, login_required
 
 __author__ = "Itai Dotan"
 
@@ -17,6 +17,7 @@ def index():
 
 @main.route('/new_friend')
 @check_session
+@login_required
 def new_friend():
     pic = g.user.user_pic
     name = g.user.first_name

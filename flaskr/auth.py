@@ -22,6 +22,17 @@ def check_session(f):
     return decorated_function
 
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        try:
+            user_id = g.user.id
+            return f(*args, **kwargs)
+        except AttributeError:
+            return redirect(url_for("auth.login"))
+    return decorated_function
+
+
 @auth.route('/login')
 def login():
     return render_template('login.html')
@@ -58,9 +69,8 @@ def signup_post():
     l_name = request.form['lname']
     gender = request.form['gender']
 
-    if not check_form_data(user_name, psw,):
-        flash('one or more of the following, are not allowed:')
-        flash('Username, password or email')
+    if not check_form_data(user_name, psw, mail, f_name, l_name, gender):
+        flash('one or more of your info use invalid character.')
         flash('please enable site scripts to be shown more info.')
         return render_template('register.html')
     user = User.query.filter_by(user_name=user_name).first()

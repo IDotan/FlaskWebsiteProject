@@ -88,7 +88,7 @@ function isOkPass(p) {
 
     if (numUpper < 1 || numLower < 1 || numNums < 1 || numSpecials < 1) {
         obj.result = false;
-        obj.error = "Password must include at lest one capetal, lower, number and a simbal";
+        obj.error = "Password must include at lest one capetal, lower, number and a symbol";
         return obj;
     }
     return obj;

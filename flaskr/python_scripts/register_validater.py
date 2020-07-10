@@ -1,9 +1,18 @@
+"""
+| basic form input validation
+"""
+import re
 
-def check_form_data(user_id, psw):
+
+def check_form_data(user_id, psw, email, f_name, l_name, gender):
     """
     | used to check for valid register info validity
     :param user_id: the user to check
     :param psw: the password to be validated
+    :param email: the E-mail to be validated
+    :param f_name: the first name to be validated
+    :param l_name: the last name to be validated
+    :param gender: the gender to be validated
     :return: True when valid
     """
     if len(user_id) < 5:
@@ -11,6 +20,14 @@ def check_form_data(user_id, psw):
     if not valid_user(user_id):
         return False
     if not valid_psw(psw):
+        return False
+    if gender not in "12":
+        return False
+    if not valid_email(email):
+        return False
+    if not valid_name_string(f_name):
+        return False
+    if not valid_name_string(l_name):
         return False
     return True
 
@@ -59,3 +76,16 @@ def valid_psw(psw):
             return True
     return False
 
+
+def valid_email(email):
+    regex = r'[^@]+@[^@]+\.[^@]+'
+    if re.search(regex, email):
+        return True
+    return False
+
+
+def valid_name_string(name):
+    char = set("~:[]{}()")
+    if any((c in char) for c in name):
+        return False
+    return True
