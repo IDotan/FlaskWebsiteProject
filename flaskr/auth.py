@@ -70,7 +70,7 @@ def signup_post():
     gender = request.form['gender']
 
     if not check_form_data(user_name, psw, mail, f_name, l_name, gender):
-        flash('one or more of your info use invalid character.')
+        flash('one or more of your info is invalid.')
         flash('please enable site scripts to be shown more info.')
         return render_template('register.html')
     user = User.query.filter_by(user_name=user_name).first()

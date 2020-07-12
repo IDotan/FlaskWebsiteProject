@@ -21,7 +21,7 @@ def check_form_data(user_id, psw, email, f_name, l_name, gender):
         return False
     if not valid_psw(psw):
         return False
-    if gender not in "12":
+    if gender != "1" and gender != "2":
         return False
     if not valid_email(email):
         return False

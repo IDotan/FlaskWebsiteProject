@@ -45,79 +45,89 @@ def test_logout(client):
     assert b'Welcome to this site' in rv.data
 
 
-def test_register_page_post_worng_info(client):
+def test_login_page_post_wrong_info(client):
     rv = client.post('/login', data=dict(username="itai2", psw="12345"), follow_redirects=True)
     assert b'Wrong login information' in rv.data
     rv = client.post('/login', data=dict(username="itai", psw="Hello*1234"), follow_redirects=True)
     assert b'Wrong login information' in rv.data
 
 
+# info already in use
 def test_register_page_post(client):
-    rv = client.post('/register', data=dict(username="itai", psw="1234", email="test@test.com", fname='name',
-                                            lname="name", gender=1), follow_redirects=True)
-    assert b'one or more of your info use invalid character' in rv.data
-
-
-def test_register_page_post1(client):
-    rv = client.post('/register', data=dict(username="itai3", psw="1234", email="test@test.com", fname='name',
-                                            lname="name", gender=1), follow_redirects=True)
-    assert b'one or more of your info use invalid character' in rv.data
-
-
-def test_register_page_post2(client):
     rv = client.post('/register', data=dict(username="itai2", psw="Hello*1234", email="test@test.com", fname='name',
                                             lname="name", gender=1), follow_redirects=True)
     assert b'User name already exists' in rv.data
 
 
-def test_register_page_post3(client):
+def test_register_page_post1(client):
     rv = client.post('/register', data=dict(username="itai3", psw="Hello*1234", email="i@i.com", fname='name',
                                             lname="name", gender=1), follow_redirects=True)
     assert b'Email address already in use' in rv.data
+
+
+# invalid info
+def test_register_page_post2(client):
+    rv = client.post('/register', data=dict(username="itai", psw="1234", email="test@test.com", fname='name',
+                                            lname="name", gender=1), follow_redirects=True)
+    assert b'one or more of your info is invalid' in rv.data
+
+
+def test_register_page_post3(client):
+    rv = client.post('/register', data=dict(username="itai3", psw="1234", email="test@test.com", fname='name',
+                                            lname="name", gender=1), follow_redirects=True)
+    assert b'one or more of your info is invalid' in rv.data
 
 
 def test_register_page_post4(client):
     """ name error raise """
     rv = client.post('/register', data=dict(username="itai3", psw="Hello*1234", email="test@test.com", fname='name~',
                                             lname="name", gender=1), follow_redirects=True)
-    assert b'one or more of your info use invalid character' in rv.data
+    assert b'one or more of your info is invalid' in rv.data
 
 
 def test_register_page_post5(client):
     """ name error raise """
     rv = client.post('/register', data=dict(username="itai3", psw="Hello*1234", email="test@test.com", fname='n~ame',
                                             lname="name", gender=1), follow_redirects=True)
-    assert b'one or more of your info use invalid character' in rv.data
+    assert b'one or more of your info is invalid' in rv.data
 
 
 def test_register_page_post6(client):
     """ name error raise """
     rv = client.post('/register', data=dict(username="itai3", psw="Hello*1234", email="test@test.com", fname='na{me',
                                             lname="name", gender=1), follow_redirects=True)
-    assert b'one or more of your info use invalid character' in rv.data
+    assert b'one or more of your info is invalid' in rv.data
 
 
 def test_register_page_post7(client):
     """ name error raise """
     rv = client.post('/register', data=dict(username="itai3", psw="Hello*1234", email="test@test.com", fname='nam]e',
                                             lname="name", gender=1), follow_redirects=True)
-    assert b'one or more of your info use invalid character' in rv.data
+    assert b'one or more of your info is invalid' in rv.data
 
 
 def test_register_page_post8(client):
     """ name error raise """
     rv = client.post('/register', data=dict(username="itai3", psw="Hello*1234", email="test@test.com", fname='na:me',
                                             lname="name", gender=1), follow_redirects=True)
-    assert b'one or more of your info use invalid character' in rv.data
+    assert b'one or more of your info is invalid' in rv.data
 
 
 def test_register_page_post9(client):
     """ gender error raise """
     rv = client.post('/register', data=dict(username="itai3", psw="Hello*1234", email="test@test.com", fname='name',
                                             lname="name", gender=3), follow_redirects=True)
-    assert b'one or more of your info use invalid character' in rv.data
+    assert b'one or more of your info is invalid' in rv.data
 
 
+def test_register_page_post10(client):
+    """ gender error raise """
+    rv = client.post('/register', data=dict(username="itai3", psw="Hello*1234", email="test@test.com", fname='name',
+                                            lname="name", gender='hey'), follow_redirects=True)
+    assert b'one or more of your info is invalid' in rv.data
+
+
+# valid register
 def test_register_page_post_valid(client):
     rv = client.post('/register', data=dict(username="itai3", psw="Hello*1234", email="test@test.com", fname='name',
                                             lname="name", gender=1), follow_redirects=True)
