@@ -1,4 +1,4 @@
-from . import users_db
+from . import users_db, toDoList_db
 
 __author__ = "Itai Dotan"
 
@@ -14,3 +14,11 @@ class User(users_db.Model):
     psw_reset = users_db.Column(users_db.String(10))
     psw_reset_time = users_db.Column(users_db.Integer)
     user_pic = users_db.Column(users_db.String(100))
+
+
+class UsersToDo(toDoList_db.Model):
+    __bind_key__ = 'UsersToDo'
+    id = toDoList_db.Column(toDoList_db.Integer, primary_key=True)
+    user_id = toDoList_db.Column(toDoList_db.Integer)
+    text = toDoList_db.Column(toDoList_db.String(100))
+    complete = toDoList_db.Column(toDoList_db.Boolean)
