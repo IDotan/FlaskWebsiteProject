@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, request, redirect, g, session
+from flask import Blueprint, render_template, url_for, request, redirect, g, session, jsonify
 from .models import UsersToDo
 from . import toDoList_db
 from .auth import check_session
@@ -19,14 +19,28 @@ def to_do_list():
     return render_template('toDoList.html', list_itemss=list_items, user_id=user_id)
 
 
-@toDoList.route('/add', methods=['POST'])
+@toDoList.route('/addJq', methods=['POST'])
 @check_session
-def add():
-    todo = UsersToDo(text=request.form['todoitem'], user_id=g.user.id, complete=False)
+def add_jq():
+    note = request.form['toDoItem']
+    todo = UsersToDo(text=note, user_id=g.user.id, complete=False)
     toDoList_db.session.add(todo)
     toDoList_db.session.commit()
+    note_id = todo.id
+    return jsonify({'note': note, 'note_id': note_id})
 
-    return redirect(url_for('toDoList.to_do_list'))
+
+@toDoList.route('/deleteJQ', methods=['POST'])
+def delete_jp():
+    note_id = request.form['note_id']
+    note_text = request.form['note_text'].strip()
+    note = UsersToDo.query.filter_by(id=int(note_id)).first()
+    done = 'nope'
+    if note.text == note_text:
+        UsersToDo.query.filter_by(id=int(note_id)).delete()
+        toDoList_db.session.commit()
+        done = 'yep'
+    return jsonify({'done': done})
 
 
 @toDoList.route('/complete/<note_id>')

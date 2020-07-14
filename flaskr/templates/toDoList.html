@@ -4,15 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>  
     <h1>Todo List</h1>  
     <div>Add a new todo item:
         {% if user_id != None %}
-            <form action="{{ url_for('toDoList.add') }}" method="POST">  
-                <input type="text" name="todoitem">  
-                <input type="submit" value="Add Item" class="button">  
+            <form>
+            <form>  
+                <input type="text" name="todoitem" id="todoitem">  
+                <input type="button" value="Add Item" onclick="add()">   
             </form>  
+            
         {% else %}
 
         {% endif %}
@@ -21,11 +24,17 @@
         <h2>Incomplete Items</h2>  
         <ul>
             {% for todo in list_itemss %}  
-                <li style="font-size: 30pt" class='mark'>{{ todo.text }} <a href="{{ url_for('toDoList.complete', note_id=todo.id) }}">Mark As Complete</a>
-                    <a href="{{ url_for('toDoList.delete', note_id=todo.id) }}">Delete</a>
+                <li style="font-size: 30pt" class='mark' id="task" note_id="{{todo.id}}">{{ todo.text }}
+                    <input type="button" value="Complete" onclick=""> 
+                    <input type="button" value="Delete" onclick="deleteNote()">  
                 </li>  
             {% endfor %}
         </ul>
     </div>  
+    <script>
+        var addLink = "{{ url_for('toDoList.add_jq') }}"
+        var deleteLink = "{{ url_for('toDoList.delete_jp') }}"
+    </script>
+    <script type="text/javascript" src="static\scripts\toDoList.js"></script>
 </body>  
 </html>
