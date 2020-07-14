@@ -22,7 +22,7 @@ def to_do_list():
 @toDoList.route('/addJq', methods=['POST'])
 @check_session
 def add_jq():
-    note = request.form['toDoItem']
+    note = request.form['toDoItem'].strip()
     todo = UsersToDo(text=note, user_id=g.user.id, complete=False)
     toDoList_db.session.add(todo)
     toDoList_db.session.commit()
@@ -31,16 +31,18 @@ def add_jq():
 
 
 @toDoList.route('/deleteJQ', methods=['POST'])
+@check_session
 def delete_jp():
+    user_id_session = g.user.id
     note_id = request.form['note_id']
     note_text = request.form['note_text'].strip()
     note = UsersToDo.query.filter_by(id=int(note_id)).first()
     done = 'nope'
-    if note.text == note_text:
+    if note.text == note_text and note.user_id == user_id_session:
         UsersToDo.query.filter_by(id=int(note_id)).delete()
         toDoList_db.session.commit()
         done = 'yep'
-    return jsonify({'done': done})
+    return jsonify({'done': done, 'note_id': note_id})
 
 
 @toDoList.route('/complete/<note_id>')

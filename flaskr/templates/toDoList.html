@@ -20,13 +20,12 @@
 
         {% endif %}
     </div>  
-    <div>  
-        <h2>Incomplete Items</h2>  
-        <ul>
+    <div >  
+        <ul class="list-items">
             {% for todo in list_itemss %}  
                 <li style="font-size: 30pt" class='mark' id="task" note_id="{{todo.id}}">{{ todo.text }}
-                    <input type="button" value="Complete" onclick=""> 
-                    <input type="button" value="Delete" onclick="deleteNote()">  
+                    <input type="button" value="Complete"> 
+                    <input type="button" value="Delete" class="delete">
                 </li>  
             {% endfor %}
         </ul>
