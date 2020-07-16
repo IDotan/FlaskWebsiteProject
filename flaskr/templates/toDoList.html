@@ -19,8 +19,8 @@
     </div>  
     <div >  
         <ul class="list-items">
-            {% for todo in list_itemss %}  
-                <li class='not-mark' id="task" note_id="{{todo.id}}">{{ todo.text }}
+            {% for todo in list_itemss %}                
+                <li class='{% if todo.complete %}marked{% else %}not-marked{% endif %}' id="task" note_id="{{todo.id}}">{{ todo.text }}
                     <input type="button" value="Complete" class="completeJq"> 
                     <input type="button" value="Delete" class="deleteJq">
                 </li>  

@@ -42,8 +42,14 @@ $(document).on('click', '.completeJq' , function ()    {
                 }
             if (data.done == "yep")    {
                 var item = "[note_id='"+ data.note_id + "']"
-                document.querySelector(item).className = "marked"
+                var temp_note = document.querySelector(item)
+                if (temp_note.className == "not-marked") {
+                    temp_note.className = "marked";          
                 }
+                else    {
+                    temp_note.className = "not-marked";
+                };
+                };
             });
 });
 

@@ -62,7 +62,10 @@ def complete_jq():
     note = UsersToDo.query.filter_by(id=int(note_id)).first()
     done = 'nope'
     if note.user_id == user_id_session:
-        note.complete = True
+        if note.complete is False:
+            note.complete = True
+        else:
+            note.complete = False
         toDoList_db.session.commit()
         done = 'yep'
     return jsonify({'done': done, 'note_id': note_id})
