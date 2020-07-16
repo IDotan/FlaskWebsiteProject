@@ -66,6 +66,6 @@ $(document).on('click', '.delete', function(){
 });
 
 $(document).on('click', '.Complete', function(){
-    $(this).parent().addClass('marked');
-    $(this).parent().removeClass('not-marked')
+    $(this).parent().toggleClass('marked');
+    $(this).parent().toggleClass('not-marked')
 });
