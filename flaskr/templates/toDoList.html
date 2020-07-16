@@ -10,14 +10,11 @@
     <h1>Todo List</h1>  
     <div>Add a new todo item:
         {% if user_id != None %}
-            <form>
-            <form>  
-                <input type="text" name="todoitem" id="todoitem">  
-                <input type="button" value="Add Item" onclick="add()">   
-            </form>  
-            
+            <input type="text" name="todoitem" id="todoitem">  
+            <input type="button" value="Add Item" onclick="addJq()">            
         {% else %}
-
+        <input type="text" name="todoitem" id="todoitem">  
+        <input type="button" value="Add Item" onclick="add()">  
         {% endif %}
     </div>  
     <div >  
@@ -25,7 +22,7 @@
             {% for todo in list_itemss %}  
                 <li style="font-size: 30pt" class='mark' id="task" note_id="{{todo.id}}">{{ todo.text }}
                     <input type="button" value="Complete"> 
-                    <input type="button" value="Delete" class="delete">
+                    <input type="button" value="Delete" class="deleteJq">
                 </li>  
             {% endfor %}
         </ul>
