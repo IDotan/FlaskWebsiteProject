@@ -10,7 +10,7 @@
     <h1>Todo List</h1>  
     <div>Add a new todo item:
         {% if user_id != None %}
-            <input type="text" name="todoitem" id="todoitem">  
+            <input type="text" name="todoitem" id="todoitem" maxlength="100">
             <input type="button" value="Add Item" onclick="addJq()">            
         {% else %}
         <input type="text" name="todoitem" id="todoitem">  
@@ -20,8 +20,8 @@
     <div >  
         <ul class="list-items">
             {% for todo in list_itemss %}  
-                <li style="font-size: 30pt" class='mark' id="task" note_id="{{todo.id}}">{{ todo.text }}
-                    <input type="button" value="Complete"> 
+                <li class='not-mark' id="task" note_id="{{todo.id}}">{{ todo.text }}
+                    <input type="button" value="Complete" class="completeJq"> 
                     <input type="button" value="Delete" class="deleteJq">
                 </li>  
             {% endfor %}
@@ -30,6 +30,7 @@
     <script>
         var addLink = "{{ url_for('toDoList.add_jq') }}"
         var deleteLink = "{{ url_for('toDoList.delete_jp') }}"
+        var completeLink =  "{{ url_for('toDoList.complete_jq') }}"
     </script>
     <script type="text/javascript" src="static\scripts\toDoList.js"></script>
 </body>  

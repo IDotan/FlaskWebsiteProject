@@ -27,6 +27,8 @@ def add_jq():
     note = request.form['toDoItem'].strip()
     if note == "":
         return {'done': "nope"}
+    if len(note) > 100:
+        return {'done': "reload"}
     todo = UsersToDo(text=note, user_id=g.user.id, complete=False)
     toDoList_db.session.add(todo)
     toDoList_db.session.commit()
@@ -41,28 +43,26 @@ def delete_jp():
         return {'done': "reload"}
     user_id_session = g.user.id
     note_id = request.form['note_id']
-    note_text = request.form['note_text'].strip()
     note = UsersToDo.query.filter_by(id=int(note_id)).first()
     done = 'nope'
-    if note.text == note_text and note.user_id == user_id_session:
+    if note.user_id == user_id_session:
         UsersToDo.query.filter_by(id=int(note_id)).delete()
         toDoList_db.session.commit()
         done = 'yep'
     return jsonify({'done': done, 'note_id': note_id})
 
 
-@toDoList.route('/complete/<note_id>')
-def complete(note_id):
-    todo = UsersToDo.query.filter_by(id=int(note_id)).first()
-    todo.complete = True
-    toDoList_db.session.commit()
-
-    return redirect(url_for('toDoList.to_do_list'))
-
-
-@toDoList.route('/delete/<note_id>')
-def delete(note_id):
-    UsersToDo.query.filter_by(id=int(note_id)).delete()
-    toDoList_db.session.commit()
-
-    return redirect(url_for('toDoList.to_do_list'))
+@toDoList.route('/completeJQ', methods=['POST'])
+@check_session
+def complete_jq():
+    if g.user is None:
+        return {'done': "reload"}
+    user_id_session = g.user.id
+    note_id = request.form['note_id']
+    note = UsersToDo.query.filter_by(id=int(note_id)).first()
+    done = 'nope'
+    if note.user_id == user_id_session:
+        note.complete = True
+        toDoList_db.session.commit()
+        done = 'yep'
+    return jsonify({'done': done, 'note_id': note_id})
