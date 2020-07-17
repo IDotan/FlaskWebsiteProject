@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session, g
 from functools import wraps
 from . import users_db
-from flaskr.python_scripts.register_validater import check_form_data
+from flaskr.python_scripts.register_validator import check_form_data
 from .models import User
 from passlib.hash import sha256_crypt
 from flaskr.python_scripts.random_pic_picker import pick_my_pic
