@@ -2,7 +2,8 @@
 
 {% block content %}
 <link rel='stylesheet' type='text/css' media='screen' href="static/styles/register.css">
-<div class="warper-form">
+<h3>Create Account</h3>
+<div class="warper-form">    
     <form class="form-continar" onsubmit="return validateForm()" method="POST">
         {% with messages = get_flashed_messages() %}
             {% for message in messages %}

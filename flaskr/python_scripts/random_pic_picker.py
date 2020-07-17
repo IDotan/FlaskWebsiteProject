@@ -18,6 +18,6 @@ def pick_my_pic(path=r"./flaskr/static/img/randomProfile"):
     return f"{path[8:len(path)]}/{pic_list[num]}"
 
 
-if __name__ == "__main__":
-    """just to run and quick test the out put"""
-    print((pick_my_pic(r"../static/img/randomProfile")))
+# if __name__ == "__main__":
+#     """just to run and quick test the out put"""
+#     print((pick_my_pic(r"../static/img/randomProfile")))

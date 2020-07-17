@@ -41,10 +41,13 @@ def valid_user(user):
     for ch in user:
         temp_acsii = ord(ch)
         if 65 <= temp_acsii <= 90:
+            temp_coverage = 1  # only for pytest coverage to see this condition
             continue
         elif 97 <= temp_acsii <= 122:
+            temp_coverage = 1  # only for pytest coverage to see this condition
             continue
         elif 48 <= temp_acsii <= 57:
+            temp_coverage = 1  # only for pytest coverage to see this condition
             continue
         else:
             return False
