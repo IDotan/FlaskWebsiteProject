@@ -1,26 +1,3 @@
-import os
-import pytest
-import shutil
-from flaskr import create_app
-
-
-app = create_app()
-
-
-@pytest.fixture
-def client():
-    os.rename(r"./flaskr/users.db", r"./flaskr/back.db")
-    shutil.copy(r"./flaskr/test.db", r"./flaskr/users.db")
-
-    app.config['TESTING'] = True
-
-    with app.test_client() as client:
-        yield client
-
-    os.remove(r"./flaskr/users.db")
-    os.rename(r"./flaskr/back.db", r"./flaskr/users.db")
-
-
 def test_home_no_name(client):
     rv = client.get('/')
     assert b'Welcome to this site' in rv.data
