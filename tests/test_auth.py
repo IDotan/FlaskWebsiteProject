@@ -1,8 +1,3 @@
-def test_home_no_name(client):
-    rv = client.get('/')
-    assert b'Welcome to this site' in rv.data
-
-
 def test_log_in_page(client):
     rv = client.get('/login')
     assert b'Login' in rv.data
@@ -26,11 +21,6 @@ def test_login_page_post_no_remember(client):
 def test_logout(client):
     rv = client.get('/logout',  follow_redirects=True)
     assert b'Welcome to this site' in rv.data
-
-
-def test_new_friend(client):
-    rv = client.get('/new_friend',  follow_redirects=True)
-    assert b'Login' in rv.data
 
 
 def test_login_page_post_wrong_info(client):
