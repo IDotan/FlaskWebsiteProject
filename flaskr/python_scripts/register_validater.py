@@ -81,6 +81,11 @@ def valid_psw(psw):
 
 
 def valid_email(email):
+    """
+    | validate the legality of the giving email
+    :param email: the email to be validated
+    :return: True when valid
+    """
     regex = r'[^@]+@[^@]+\.[^@]+'
     if re.search(regex, email):
         return True
@@ -88,6 +93,11 @@ def valid_email(email):
 
 
 def valid_name_string(name):
+    """
+    | validate the legality of the giving name
+    :param name: the name to be validated
+    :return: True when valid
+    """
     char = set("~:[]{}()")
     if any((c in char) for c in name):
         return False

@@ -85,10 +85,12 @@ def test_logged_delete(client):
            b'test test test test test test test test tests' not in rv.data
 
 
-def test_logged_delete_hey_worng_text(client):
+def test_logged_delete_hey_wrong_text(client):
     client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
     rv = client.post('/deleteJQ', data=dict(note_id=note_2, note_text="bye"))
     assert b'nope' in rv.data
+    rv = client.get('/toDoList')
+    assert b'hey' in rv.data
 
 
 def test_logged_delete_hey(client):
