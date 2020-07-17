@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, request, redirect, g, session, jsonify
+from flask import Blueprint, render_template, request, g, session, jsonify
 from .models import UsersToDo
 from . import toDoList_db
 from .auth import check_session

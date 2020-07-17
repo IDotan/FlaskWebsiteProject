@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, g, url_for
+from flask import Blueprint, render_template, g
 from .auth import check_session, login_required
 
 __author__ = "Itai Dotan"
