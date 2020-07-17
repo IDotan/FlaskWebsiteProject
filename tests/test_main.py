@@ -4,7 +4,7 @@ def test_home_no_name(client):
 
 
 def test_new_friend_logged(client):
-    client.post('/login', data=dict(username="itai2", psw="Hello*1234"), follow_redirects=True)
+    client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
     rv = client.get('/new_friend',  follow_redirects=True)
     assert b'Welcome itai' in rv.data
 

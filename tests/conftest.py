@@ -11,8 +11,8 @@ def app():
 
     app = create_app()
     app.config['TESTING'] = True
-
     with app.test_client() as client:
+        app.teardown_request
         yield client
 
     os.remove(r"./flaskr/users.db")
@@ -22,3 +22,4 @@ def app():
 @pytest.fixture
 def client(app):
     return app
+
