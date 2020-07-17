@@ -1,4 +1,3 @@
-import clipboard
 note_1 = None
 note_2 = None
 
@@ -72,22 +71,29 @@ def test_not_logged_delete(client):
 
 def test_wrong_user_delete(client):
     client.post('/login', data=dict(username="admin", psw="Hello*1234"))
-    rv = client.post('/deleteJQ', data=dict(note_id=note_1))
+    rv = client.post('/deleteJQ', data=dict(note_id=note_2, note_text='hey'))
     assert b'nope' in rv.data
 
 
 def test_logged_delete(client):
     client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
-    rv = client.post('/deleteJQ', data=dict(note_id=note_1))
+    long_str = 'test test test test test test test test test test test test test test test test test test test tests'
+    rv = client.post('/deleteJQ', data=dict(note_id=note_1, note_text=long_str))
     assert b'yep' in rv.data
     rv = client.get('/toDoList')
     assert b'test test test test test test test test test test test ' \
            b'test test test test test test test test tests' not in rv.data
 
 
+def test_logged_delete_hey_worng_text(client):
+    client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
+    rv = client.post('/deleteJQ', data=dict(note_id=note_2, note_text="bye"))
+    assert b'nope' in rv.data
+
+
 def test_logged_delete_hey(client):
     client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
-    rv = client.post('/deleteJQ', data=dict(note_id=note_2))
+    rv = client.post('/deleteJQ', data=dict(note_id=note_2, note_text="hey"))
     assert b'yep' in rv.data
     rv = client.get('/toDoList')
     assert b'hey' not in rv.data

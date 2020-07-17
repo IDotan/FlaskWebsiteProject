@@ -43,9 +43,10 @@ def delete_jp():
         return {'done': "reload"}
     user_id_session = g.user.id
     note_id = request.form['note_id']
+    note_text = request.form['note_text'].strip()
     note = UsersToDo.query.filter_by(id=int(note_id)).first()
     done = 'nope'
-    if note.user_id == user_id_session:
+    if note.user_id == user_id_session and note_text == note.text:
         UsersToDo.query.filter_by(id=int(note_id)).delete()
         toDoList_db.session.commit()
         done = 'yep'
@@ -59,9 +60,10 @@ def complete_jq():
         return {'done': "reload"}
     user_id_session = g.user.id
     note_id = request.form['note_id']
+    note_text = request.form['note_text'].strip()
     note = UsersToDo.query.filter_by(id=int(note_id)).first()
     done = 'nope'
-    if note.user_id == user_id_session:
+    if note.user_id == user_id_session and note_text == note.text:
         if note.complete is False:
             note.complete = True
         else:

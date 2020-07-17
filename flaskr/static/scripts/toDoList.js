@@ -44,7 +44,7 @@ $(document).on('click', '.completeJq' , function ()    {
                 var item = "[note_id='"+ data.note_id + "']"
                 var temp_note = document.querySelector(item)
                 if (temp_note.className == "not-marked") {
-                    temp_note.className = "marked";          
+                    temp_note.className = "marked";        
                 }
                 else    {
                     temp_note.className = "not-marked";
