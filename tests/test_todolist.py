@@ -63,6 +63,38 @@ def test_logged_added_showing(client):
            b'test test test test test test test test tests' in rv.data
 
 
+# complete tests
+def test_not_logged_complete(client):
+    rv = client.post('/completeJQ', data=dict(note_id=note_2))
+    assert b'reload' in rv.data
+
+
+def test_wrong_user_complete(client):
+    client.post('/login', data=dict(username="admin", psw="Hello*1234"))
+    rv = client.post('/completeJQ', data=dict(note_id=note_2, note_text='hey'))
+    assert b'nope' in rv.data
+
+
+def test_logged_complete(client):
+    client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
+    rv = client.get('/toDoList')
+    assert b'class=\'not-marked\'' in rv.data
+    rv = client.post('/completeJQ', data=dict(note_id=note_2, note_text="hey"))
+    assert b'yep' in rv.data
+    rv = client.get('/toDoList')
+    assert b'class=\'marked\'' in rv.data
+
+
+def test_logged_uncomplete(client):
+    client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
+    rv = client.get('/toDoList')
+    assert b'class=\'marked\'' in rv.data
+    rv = client.post('/completeJQ', data=dict(note_id=note_2, note_text='hey'))
+    assert b'yep' in rv.data
+    rv = client.get('/toDoList')
+    assert b'class=\'marked\'' not in rv.data
+
+
 # delete tests
 def test_not_logged_delete(client):
     rv = client.post('/deleteJQ', data=dict(note_id=note_1))
