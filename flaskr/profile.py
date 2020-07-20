@@ -3,7 +3,7 @@ from .auth import check_session, login_required
 from passlib.hash import sha256_crypt
 from . import users_db, toDoList_db
 from .models import User, UsersToDo
-
+from .python_scripts.register_validator import valid_psw
 __author__ = "Itai Dotan"
 
 profile = Blueprint('profile', __name__)
@@ -29,6 +29,9 @@ def profile_psw_change():
         return profile_page()
     if old_psw == new_psw:
         flash('New password can\'t be the same as the old password', 'change')
+        return profile_page()
+    if not valid_psw(new_psw):
+        flash('New password is invalid', 'change')
         return profile_page()
     if new_psw != confirm_psw:
         flash('Current password don\'t match the confirm password', 'change')

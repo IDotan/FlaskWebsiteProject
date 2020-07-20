@@ -8,8 +8,11 @@
 </head>
 
 <body>
-    <img src={{profile_pic}} alt="profile picture" width="150" height="150" style="border-radius: 50%;">
-    {{name}}
+    <div>
+        <img src={{profile_pic}} alt="profile picture" width="150" height="150" style="border-radius: 50%;">
+        {{name}}
+    </div>
+    <br>
     <div class='psw_change'>
         <form class="change-password" action="{{ url_for('profile.profile_psw_change') }} " method="POST">
             {% with change = get_flashed_messages(category_filter=["change"]) %}
