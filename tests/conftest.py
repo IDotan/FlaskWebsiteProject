@@ -3,6 +3,8 @@ import pytest
 import shutil
 from flaskr import create_app
 
+__author__ = "Itai Dotan"
+
 
 @pytest.fixture
 def app():

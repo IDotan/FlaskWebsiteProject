@@ -1,3 +1,6 @@
+__author__ = "Itai Dotan"
+
+
 def test_log_in_page(client):
     rv = client.get('/login')
     assert b'Login' in rv.data

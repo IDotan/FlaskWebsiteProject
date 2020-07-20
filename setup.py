@@ -8,6 +8,7 @@ setup(
     install_requires=[
         'flask',
         'flask_sqlalchemy',
+        'passlib',
     ],
     extras_require={"test": ["pytest", "coverage"]},
 )

@@ -19,6 +19,9 @@
                                 ToDoList
                             </a> |
                             {% if name %}
+                            <a href="{{ url_for('profile.profile_page') }}" >
+                                profile
+                            </a> |
                             <a href="{{ url_for('auth.logout') }}" >
                                 Logout
                             </a>

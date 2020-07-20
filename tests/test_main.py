@@ -1,3 +1,6 @@
+__author__ = "Itai Dotan"
+
+
 def test_home_no_name(client):
     rv = client.get('/')
     assert b'Welcome to this site' in rv.data

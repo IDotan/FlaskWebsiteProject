@@ -1,3 +1,5 @@
+__author__ = "Itai Dotan"
+
 note_1 = None
 note_2 = None
 

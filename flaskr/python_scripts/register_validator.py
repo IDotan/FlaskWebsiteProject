@@ -3,6 +3,8 @@
 """
 import re
 
+__author__ = "Itai Dotan"
+
 
 def check_form_data(user_id, psw, email, f_name, l_name, gender):
     """

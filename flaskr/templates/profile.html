@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <img src={{profile_pic}} alt="profile picture" width="150" height="150" style="border-radius: 50%;">
+    {{name}}
+    <div class='psw_change'>
+        <form class="change-password" action="{{ url_for('profile.profile_psw_change') }} " method="POST">
+            {% with change = get_flashed_messages(category_filter=["change"]) %}
+            {% if change %}
+            <div class="alert-message block-message change">
+                {%- for msg in change %}    
+                <li>{{ msg }}</li>
+                {% endfor -%}
+            </div>
+            {% endif %}
+            {% endwith %}
+            <div>
+                <label for="old_psw">Current password:</label>
+                <input type="password" id="old_psw" name="old_psw" required>
+            </div>
+            <div>
+                <label for="new_psw">New password:</label>
+                <input type="password" id="new_psw" name="new_psw" required>
+            </div>
+            <div>
+                <label for="confirm_psw">Confirm password:</label>
+                <input type="password" id="confirm_psw" name="confirm_psw" required>
+            </div>
+            <input class="submit-button" type="submit" value="Change password">
+        </form>
+        <br>
+        <div class="delete-confirmation ">
+            <span>This can not be undone, make sure you saved all you need from the site.</span>
+            {% with delete = get_flashed_messages(category_filter=["delete"]) %}
+            {% if delete %}
+            <div class="alert-message block-message change">
+                {%- for msg in delete %}    
+                <li>{{ msg }}</li>
+                {% endfor -%}
+            </div>
+            {% endif %}
+            {% endwith %}
+            <form class="delete-form" action="{{ url_for('profile.delete_account') }}" method="POST">
+                <label for="delete_psw">Password:</label>
+                <input type="password" id="delete_psw" name="delete_psw" required>
+                <input class="submit-button" type="submit" value="Delete">
+            </form>
+        </div>
+    </div>
+    <script>
+        var deleteLink = "{{ url_for('profile.delete_account') }}"
+    </script>
+</body>
+
+{% endblock %}

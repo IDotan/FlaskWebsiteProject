@@ -24,5 +24,8 @@ def create_app():
     from .todolist import toDoList as toDoList_blueprint
     app.register_blueprint(toDoList_blueprint)
 
+    from .profile import profile as profile_blueprint
+    app.register_blueprint(profile_blueprint)
+
     return app
 
