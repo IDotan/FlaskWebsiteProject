@@ -8,8 +8,8 @@ class User(users_db.Model):
     email = users_db.Column(users_db.String(100), unique=True)
     user_name = users_db.Column(users_db.String(100), unique=True)
     password = users_db.Column(users_db.String(100))
-    first_name = users_db.Column(users_db.String(50))
-    last_name = users_db.Column(users_db.String(50))
+    first_name = users_db.Column(users_db.String(30))
+    last_name = users_db.Column(users_db.String(30))
     gender = users_db.Column(users_db.Integer)  # 1.Male 2.Female
     psw_reset = users_db.Column(users_db.String(10))
     psw_reset_time = users_db.Column(users_db.Integer)

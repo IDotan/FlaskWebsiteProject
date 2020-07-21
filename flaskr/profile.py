@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template, redirect, url_for, request, g, flash, session
+from flask import Blueprint, render_template, request, g, flash, session
 from .auth import check_session, login_required
 from passlib.hash import sha256_crypt
 from . import users_db, toDoList_db
 from .models import User, UsersToDo
 from .python_scripts.register_validator import valid_psw
+
 __author__ = "Itai Dotan"
 
 profile = Blueprint('profile', __name__)

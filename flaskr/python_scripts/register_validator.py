@@ -100,6 +100,8 @@ def valid_name_string(name):
     :param name: the name to be validated
     :return: True when valid
     """
+    if len(name) > 30:
+        return False
     char = set("~:[]{}()")
     if any((c in char) for c in name):
         return False

@@ -95,6 +95,14 @@ def test_register_page_post_invalid_last_name(client):
     assert b'one or more of your info is invalid' in rv.data
 
 
+def test_register_page_post_invalid_name_to_long(client):
+    """ name error raise """
+    test_string = "hahadfhaghahaghaghagaghhhagahha"
+    rv = client.post('/register', data=dict(username="itai3", psw="Hello*1234", email="test@test.com", fname='name',
+                                            lname=test_string, gender=1), follow_redirects=True)
+    assert b'one or more of your info is invalid' in rv.data
+
+
 def test_register_page_post_invalid_gender(client):
     """ gender error raise """
     rv = client.post('/register', data=dict(username="itai3", psw="Hello*1234", email="test@test.com", fname='name',
