@@ -1,4 +1,4 @@
-from flaskr.models import UsersToDo
+from flaskr.models import UsersToDo, User
 __author__ = "Itai Dotan"
 
 
@@ -53,9 +53,12 @@ def test_delete_wrong_password(client):
 
 def test_delete(client):
     client.post('/login', data=dict(username="delete_test", psw="Hello*1234"))
+    user_id = User.query.filter_by(user_name="delete_test").first().id
     client.post('/addJq', data=dict(toDoItem='delete_todo_test'))
     client.post('/addJq', data=dict(toDoItem='delete_todo_test2'))
     client.post('/addJq', data=dict(toDoItem='delete_todo_test3'))
     rv = client.post('/delete_account', data=dict(delete_psw='Hello*1234'), follow_redirects=True)
     assert b'bye' in rv.data
-    assert UsersToDo.query.filter_by(user_id=3).all() == []
+    assert UsersToDo.query.filter_by(user_id=user_id).all() == []
+    assert User.query.filter_by(user_name="delete_test").first() is None
+
