@@ -11,10 +11,24 @@
     <div>
         <img src={{profile_pic}} alt="profile picture" width="150" height="150" style="border-radius: 50%;">
         {{name}}
+        <form method="POST" action="{{ url_for('profile.upload_file') }}" enctype=multipart/form-data>
+            {% with upload = get_flashed_messages(category_filter=["upload"]) %}
+            {% if upload %}
+            <div class="alert-message block-message upload">
+                {%- for msg in upload %}    
+                <li>{{ msg }}</li>
+                {% endfor -%}
+            </div>
+            {% endif %}
+            {% endwith %}
+            <label for="UploadPic">Upload profile picture</label><br>
+            <input type="file" id="myFile" name="file">
+            <input class="submit-button" type="submit" value="Upload">
+        </form>
     </div>
     <br>
     <div class='psw_change'>
-        <form class="change-password" action="{{ url_for('profile.profile_psw_change') }} " method="POST">
+        <form class="change-password" action="{{ url_for('profile.profile_psw_change') }} " method="POST" onsubmit="return validateForm()">
             {% with change = get_flashed_messages(category_filter=["change"]) %}
             {% if change %}
             <div class="alert-message block-message change">
@@ -29,6 +43,10 @@
                 <input type="password" id="old_psw" name="old_psw" required>
             </div>
             <div>
+                <span id="pswError" class="error" hidden></span>
+            </div>
+            <div>
+                <span id="pswError" class="error" hidden></span>
                 <label for="new_psw">New password:</label>
                 <input type="password" id="new_psw" name="new_psw" required>
             </div>
@@ -60,6 +78,7 @@
     <script>
         var deleteLink = "{{ url_for('profile.delete_account') }}"
     </script>
+    <script type="text/javascript" src="static\scripts\profile.js"></script>
 </body>
 
 {% endblock %}
