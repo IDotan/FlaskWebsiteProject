@@ -14,6 +14,7 @@ class User(users_db.Model):
     psw_reset = users_db.Column(users_db.String(10))
     psw_reset_time = users_db.Column(users_db.Integer)
     user_pic = users_db.Column(users_db.String(100))
+    user_pic_name = users_db.Column(users_db.String(100))
 
 
 class UsersToDo(toDoList_db.Model):
