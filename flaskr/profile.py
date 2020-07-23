@@ -13,11 +13,12 @@ profile = Blueprint('profile', __name__)
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 UPLOAD_FOLDER = str(os.getcwd()) + r'\flaskr\static\img\user_pic'
 
-if not os.path.exists(UPLOAD_FOLDER):
+if not os.path.exists(UPLOAD_FOLDER):  # pragma: no cover
     os.makedirs(UPLOAD_FOLDER)
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 6 * 1024 * 1024
 
 
 def allowed_file(filename):
@@ -70,9 +71,9 @@ def delete_account():
         return redirect(url_for("profile.profile_page"))
     # delete user data
     user = User.query.filter_by(id=user_id).first()
-    # pic = g.user.user_pic_name
-    # if "user_pic_" in pic:
-    #     os.remove((UPLOAD_FOLDER + '\\' + pic))
+    pic = g.user.user_pic_name
+    if pic is not None and "user_pic_" in pic:
+        os.remove((UPLOAD_FOLDER + '\\' + pic))
     users_db.session.delete(user)
     users_db.session.commit()
     todo = UsersToDo.query.filter_by(user_id=user_id).all()
@@ -92,11 +93,14 @@ def upload_file():
         flash('No file part', 'upload')
         return redirect(url_for("profile.profile_page"))
     file = request.files['file']
-    if file.filename == '':
-        flash('No selected file')
+    if file.filename == '':  # pragma: no cover
+        flash('No selected file', 'upload')
         return redirect(url_for("profile.profile_page"))
     if file and allowed_file(file.filename):
         # filename = str(g.user.id) + '_pic' + str(file.filename[-4:])
+        pic = g.user.user_pic_name
+        if pic is not None and "user_pic_" in pic and os.path.exists((UPLOAD_FOLDER + '\\' + pic)):
+            os.remove((UPLOAD_FOLDER + '\\' + pic))
         filename = f'user_pic_{g.user.id}_' + secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         user = User.query.filter_by(id=g.user.id).first()
@@ -104,3 +108,4 @@ def upload_file():
         user.user_pic_name = filename
         users_db.session.commit()
         return redirect(url_for("profile.profile_page"))
+    return redirect(url_for("profile.profile_page"))
