@@ -9,3 +9,4 @@ __pycache__/
 htmlcov/
 /flaskr/back.db
 /flaskr/back_toDo.db
+/flaskr/static/img/user_pic/*

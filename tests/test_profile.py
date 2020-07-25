@@ -61,14 +61,14 @@ def test_upload(client):
         rv = client.post('/upload_pic', data=dict(file=jpg),
                          content_type='multipart/form-data', follow_redirects=True)
     rv = client.get('/profile')
-    assert b'user_pic_3_2.jpg' in rv.data
+    assert b'user_pic_3.jpg' in rv.data
     client.post('/login', data=dict(username="delete_test", psw="Hello*1234"))
     pic2 = str(os.getcwd()) + r'\flaskr\static\img\randomProfile\3.jpg'
     with open(pic2, 'rb') as jpg:
         client.post('/upload_pic', data=dict(file=jpg),
                     content_type='multipart/form-data', follow_redirects=True)
     rv = client.get('/profile')
-    assert b'user_pic_3_3.jpg' in rv.data
+    assert b'user_pic_3.jpg' in rv.data
 
 
 def test_upload_no_file(client):
@@ -84,7 +84,8 @@ def test_upload_not_valid_file(client):
     with open(pic2, 'rb') as jpg:
         rv = client.post('/upload_pic', data=dict(file=jpg),
                          content_type='multipart/form-data', follow_redirects=True)
-    assert b'Current password' in rv.data
+    assert b'Not allowed file type' in rv.data
+
 
 def test_delete_wrong_password(client):
     client.post('/login', data=dict(username="delete_test", psw="Hello*1234"))

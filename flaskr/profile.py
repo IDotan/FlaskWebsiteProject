@@ -18,7 +18,6 @@ if not os.path.exists(UPLOAD_FOLDER):  # pragma: no cover
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 6 * 1024 * 1024
 
 
 def allowed_file(filename):
@@ -101,11 +100,14 @@ def upload_file():
         pic = g.user.user_pic_name
         if pic is not None and "user_pic_" in pic and os.path.exists((UPLOAD_FOLDER + '\\' + pic)):
             os.remove((UPLOAD_FOLDER + '\\' + pic))
-        filename = f'user_pic_{g.user.id}_' + secure_filename(file.filename)
+        filename = f'user_pic_{g.user.id}.' + file.filename.rsplit('.', 1)[1].lower()
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         user = User.query.filter_by(id=g.user.id).first()
         user.user_pic = '\\static\\img\\user_pic\\' + str(filename)
         user.user_pic_name = filename
         users_db.session.commit()
         return redirect(url_for("profile.profile_page"))
+    else:
+        flash('Not allowed file type', 'upload')
+        flash('only: png jpg jpeg gif', 'upload')
     return redirect(url_for("profile.profile_page"))
