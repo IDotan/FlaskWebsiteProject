@@ -98,9 +98,12 @@ def upload_file():
     if file and allowed_file(file.filename):
         # filename = str(g.user.id) + '_pic' + str(file.filename[-4:])
         pic = g.user.user_pic_name
+        new_upload = 'a'
         if pic is not None and "user_pic_" in pic and os.path.exists((UPLOAD_FOLDER + '\\' + pic)):
             os.remove((UPLOAD_FOLDER + '\\' + pic))
-        filename = f'user_pic_{g.user.id}.' + file.filename.rsplit('.', 1)[1].lower()
+            if 'a' in pic:
+                new_upload = 'b'
+        filename = f'user_pic_{g.user.id}_{new_upload}.' + file.filename.rsplit('.', 1)[1].lower()
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         user = User.query.filter_by(id=g.user.id).first()
         user.user_pic = '\\static\\img\\user_pic\\' + str(filename)

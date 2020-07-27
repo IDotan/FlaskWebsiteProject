@@ -61,14 +61,20 @@ def test_upload(client):
         rv = client.post('/upload_pic', data=dict(file=jpg),
                          content_type='multipart/form-data', follow_redirects=True)
     rv = client.get('/profile')
-    assert b'user_pic_3.jpg' in rv.data
+    assert b'user_pic_3_a.jpg' in rv.data
     client.post('/login', data=dict(username="delete_test", psw="Hello*1234"))
     pic2 = str(os.getcwd()) + r'\flaskr\static\img\randomProfile\3.jpg'
     with open(pic2, 'rb') as jpg:
         client.post('/upload_pic', data=dict(file=jpg),
                     content_type='multipart/form-data', follow_redirects=True)
     rv = client.get('/profile')
-    assert b'user_pic_3.jpg' in rv.data
+    assert b'user_pic_3_b.jpg' in rv.data
+    pic3 = str(os.getcwd()) + r'\flaskr\static\img\randomProfile\4.jpg'
+    with open(pic3, 'rb') as jpg:
+        client.post('/upload_pic', data=dict(file=jpg),
+                    content_type='multipart/form-data', follow_redirects=True)
+    rv = client.get('/profile')
+    assert b'user_pic_3_a.jpg' in rv.data
 
 
 def test_upload_no_file(client):
@@ -96,8 +102,8 @@ def test_delete_wrong_password(client):
 
 def test_delete(client):
     client.post('/login', data=dict(username="delete_test", psw="Hello*1234"))
-    pic2 = str(os.getcwd()) + r'\flaskr\static\img\randomProfile\3.jpg'
-    with open(pic2, 'rb') as jpg:
+    pic = str(os.getcwd()) + r'\flaskr\static\img\randomProfile\4.jpg'
+    with open(pic, 'rb') as jpg:
         client.post('/upload_pic', data=dict(file=jpg),
                     content_type='multipart/form-data', follow_redirects=True)
     user_id = User.query.filter_by(user_name="delete_test").first().id
