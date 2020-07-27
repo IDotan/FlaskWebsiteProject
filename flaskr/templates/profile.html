@@ -27,6 +27,11 @@
             <input class="submit-button" type="submit" value="Upload">
         </form>
     </div>
+    <div>
+        <form action="{{ url_for('profile.pick_random') }}" method="POST">
+            <button type="submit" value="Submit">New Random picture</button>
+        </form>
+    </div>
     <br>
     <div class='psw_change'>
         <form class="change-password" action="{{ url_for('profile.profile_psw_change') }} " method="POST" onsubmit="return validateForm()">

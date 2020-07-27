@@ -1,11 +1,11 @@
-from flask import Blueprint, render_template, request, g, flash, session, redirect, url_for, Flask
+from flask import Blueprint, render_template, request, g, flash, session, redirect, url_for, Flask, make_response
 from .auth import check_session, login_required
 from passlib.hash import sha256_crypt
 from . import users_db, toDoList_db
 from .models import User, UsersToDo
 from .python_scripts.register_validator import valid_psw
 import os
-from werkzeug.utils import secure_filename
+from flaskr.python_scripts.random_pic_picker import pick_my_pic
 
 __author__ = "Itai Dotan"
 
@@ -61,7 +61,6 @@ def profile_psw_change():
 
 @profile.route('/delete_account', methods=['POST'])
 @check_session
-@login_required
 def delete_account():
     user_id = g.user.id
     psw = request.form['delete_psw']
@@ -97,20 +96,31 @@ def upload_file():
         return redirect(url_for("profile.profile_page"))
     if file and allowed_file(file.filename):
         # filename = str(g.user.id) + '_pic' + str(file.filename[-4:])
-        pic = g.user.user_pic_name
-        new_upload = 'a'
-        if pic is not None and "user_pic_" in pic and os.path.exists((UPLOAD_FOLDER + '\\' + pic)):
-            os.remove((UPLOAD_FOLDER + '\\' + pic))
-            if 'a' in pic:
-                new_upload = 'b'
-        filename = f'user_pic_{g.user.id}_{new_upload}.' + file.filename.rsplit('.', 1)[1].lower()
+        filename = f'user_pic_{g.user.id}.' + file.filename.rsplit('.', 1)[1].lower()
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         user = User.query.filter_by(id=g.user.id).first()
-        user.user_pic = '\\static\\img\\user_pic\\' + str(filename)
+        user.user_pic = '/static/img/user_pic/' + str(filename)
         user.user_pic_name = filename
         users_db.session.commit()
         return redirect(url_for("profile.profile_page"))
     else:
         flash('Not allowed file type', 'upload')
         flash('only: png jpg jpeg gif', 'upload')
+    return redirect(url_for("profile.profile_page"))
+
+
+@profile.route('/random_pic', methods=['POST'])
+@check_session
+def pick_random():
+    user = User.query.filter_by(id=g.user.id).first()
+    old_pic_name = user.user_pic_name
+    if old_pic_name is not None and "user_pic_" in old_pic_name:
+        os.remove((UPLOAD_FOLDER + '\\' + old_pic_name))
+    old_pic = user.user_pic
+    new_pic = pick_my_pic()
+    while old_pic.rsplit('.', 1)[0][-1] == new_pic.rsplit('.', 1)[0][-1]:  # pragma: no cover
+        new_pic = pick_my_pic()
+    user.user_pic_name = None
+    user.user_pic = new_pic
+    users_db.session.commit()
     return redirect(url_for("profile.profile_page"))

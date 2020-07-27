@@ -61,20 +61,14 @@ def test_upload(client):
         rv = client.post('/upload_pic', data=dict(file=jpg),
                          content_type='multipart/form-data', follow_redirects=True)
     rv = client.get('/profile')
-    assert b'user_pic_3_a.jpg' in rv.data
+    assert b'user_pic_3.jpg' in rv.data
     client.post('/login', data=dict(username="delete_test", psw="Hello*1234"))
     pic2 = str(os.getcwd()) + r'\flaskr\static\img\randomProfile\3.jpg'
     with open(pic2, 'rb') as jpg:
         client.post('/upload_pic', data=dict(file=jpg),
                     content_type='multipart/form-data', follow_redirects=True)
     rv = client.get('/profile')
-    assert b'user_pic_3_b.jpg' in rv.data
-    pic3 = str(os.getcwd()) + r'\flaskr\static\img\randomProfile\4.jpg'
-    with open(pic3, 'rb') as jpg:
-        client.post('/upload_pic', data=dict(file=jpg),
-                    content_type='multipart/form-data', follow_redirects=True)
-    rv = client.get('/profile')
-    assert b'user_pic_3_a.jpg' in rv.data
+    assert b'user_pic_3.jpg' in rv.data
 
 
 def test_upload_no_file(client):
@@ -86,11 +80,34 @@ def test_upload_no_file(client):
 
 def test_upload_not_valid_file(client):
     client.post('/login', data=dict(username="delete_test", psw="Hello*1234"))
-    pic2 = str(os.getcwd()) + r'\flaskr\test.txt'
-    with open(pic2, 'rb') as jpg:
+    pic = str(os.getcwd()) + r'\flaskr\test.txt'
+    with open(pic, 'rb') as jpg:
         rv = client.post('/upload_pic', data=dict(file=jpg),
                          content_type='multipart/form-data', follow_redirects=True)
     assert b'Not allowed file type' in rv.data
+
+
+def test_random_pic(client):
+    client.post('/login', data=dict(username="delete_test", psw="Hello*1234"))
+    rv = client.post('random_pic', follow_redirects=True)
+    assert b'1.jpg' not in rv.data
+
+
+def test_random_pic_pre_upload(client):
+    client.post('/login', data=dict(username="delete_test", psw="Hello*1234"))
+    pic = str(os.getcwd()) + r'\flaskr\static\img\randomProfile\3.jpg'
+    with open(pic, 'rb') as jpg:
+        client.post('/upload_pic', data=dict(file=jpg),
+                    content_type='multipart/form-data', follow_redirects=True)
+    rv = client.post('random_pic', follow_redirects=True)
+    assert b'3.jpg' not in rv.data
+
+
+def test_random_pic_multi(client):
+    client.post('/login', data=dict(username="delete_test", psw="Hello*1234"))
+    rv = client.post('random_pic', follow_redirects=True)
+    rv2 = client.post('random_pic', follow_redirects=True)
+    assert rv != rv2
 
 
 def test_delete_wrong_password(client):
@@ -100,7 +117,7 @@ def test_delete_wrong_password(client):
     assert b'Current password incorrect' in rv.data
 
 
-def test_delete(client):
+def test_delete_with_upload_pic(client):
     client.post('/login', data=dict(username="delete_test", psw="Hello*1234"))
     pic = str(os.getcwd()) + r'\flaskr\static\img\randomProfile\4.jpg'
     with open(pic, 'rb') as jpg:
