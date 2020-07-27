@@ -105,9 +105,11 @@ def test_random_pic_pre_upload(client):
 
 def test_random_pic_multi(client):
     client.post('/login', data=dict(username="delete_test", psw="Hello*1234"))
-    rv = client.post('random_pic', follow_redirects=True)
-    rv2 = client.post('random_pic', follow_redirects=True)
-    assert rv != rv2
+    client.post('/random_pic', follow_redirects=True)
+    temp = User.query.filter_by(user_name="delete_test").first().user_pic
+    client.post('/random_pic', follow_redirects=True)
+    temp2 = User.query.filter_by(user_name="delete_test").first().user_pic
+    assert temp != temp2
 
 
 def test_delete_wrong_password(client):
