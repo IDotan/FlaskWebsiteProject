@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, g, flash, session, redirect, url_for, Flask, make_response
+from flask import Blueprint, render_template, request, g, flash, session, redirect, url_for, Flask
 from .auth import check_session, login_required
 from passlib.hash import sha256_crypt
 from . import users_db, toDoList_db
