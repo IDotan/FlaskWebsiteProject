@@ -6,6 +6,7 @@ from .models import User, UsersToDo
 from .python_scripts.register_validator import valid_psw
 import os
 from flaskr.python_scripts.random_pic_picker import pick_my_pic
+from time import time
 
 __author__ = "Itai Dotan"
 
@@ -21,8 +22,23 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 def allowed_file(filename):
+    """
+    | make sure the upload file is an allowed file type
+    :param filename: file to check
+    :return: True when the file type os allowed
+    """
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+def delete_old_user_pic(user):
+    """
+    | check if there is a user uploaded picture and if there is delete it
+    :param user: user object to check it's picture
+    """
+    old_pic_name = user.user_pic_name
+    if old_pic_name is not None and "user_pic_" in old_pic_name:
+        os.remove((UPLOAD_FOLDER + '\\' + old_pic_name))
 
 
 @profile.route('/profile')
@@ -69,9 +85,7 @@ def delete_account():
         return redirect(url_for("profile.profile_page"))
     # delete user data
     user = User.query.filter_by(id=user_id).first()
-    pic = g.user.user_pic_name
-    if pic is not None and "user_pic_" in pic:
-        os.remove((UPLOAD_FOLDER + '\\' + pic))
+    delete_old_user_pic(user)
     users_db.session.delete(user)
     users_db.session.commit()
     todo = UsersToDo.query.filter_by(user_id=user_id).all()
@@ -95,8 +109,9 @@ def upload_file():
         flash('No selected file', 'upload')
         return redirect(url_for("profile.profile_page"))
     if file and allowed_file(file.filename):
+        delete_old_user_pic(User.query.filter_by(id=g.user.id).first())
         # filename = str(g.user.id) + '_pic' + str(file.filename[-4:])
-        filename = f'user_pic_{g.user.id}.' + file.filename.rsplit('.', 1)[1].lower()
+        filename = f'user_pic_{g.user.id}{str(time())}.' + file.filename.rsplit('.', 1)[1].lower()
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         user = User.query.filter_by(id=g.user.id).first()
         user.user_pic = '/static/img/user_pic/' + str(filename)
@@ -113,9 +128,7 @@ def upload_file():
 @check_session
 def pick_random():
     user = User.query.filter_by(id=g.user.id).first()
-    old_pic_name = user.user_pic_name
-    if old_pic_name is not None and "user_pic_" in old_pic_name:
-        os.remove((UPLOAD_FOLDER + '\\' + old_pic_name))
+    delete_old_user_pic(user)
     old_pic = user.user_pic
     new_pic = pick_my_pic()
     while old_pic.rsplit('.', 1)[0][-1] == new_pic.rsplit('.', 1)[0][-1]:  # pragma: no cover
