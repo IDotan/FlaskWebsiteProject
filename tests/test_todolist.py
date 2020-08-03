@@ -87,7 +87,7 @@ def test_logged_complete(client):
     assert b'class=\'marked\'' in rv.data
 
 
-def test_logged_uncomplete(client):
+def test_logged_remove_mark(client):
     client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
     rv = client.get('/toDoList')
     assert b'class=\'marked\'' in rv.data

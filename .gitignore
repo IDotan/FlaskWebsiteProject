@@ -7,6 +7,5 @@ __pycache__/
 .pytest_cache/
 .coverage
 htmlcov/
-/flaskr/back.db
-/flaskr/back_toDo.db
+/flaskr/test_this.db
 /flaskr/static/img/user_pic/*

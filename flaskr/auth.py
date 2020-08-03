@@ -26,7 +26,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         try:
-            user_id = g.user.id
+            g.user.id
             return f(*args, **kwargs)
         except AttributeError:
             return redirect(url_for("auth.login"))

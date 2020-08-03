@@ -27,8 +27,7 @@ def allowed_file(filename):
     :param filename: file to check
     :return: True when the file type os allowed
     """
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 def delete_old_user_pic(user):
@@ -66,7 +65,7 @@ def profile_psw_change():
         flash('New password is invalid', 'change')
         return redirect(url_for("profile.profile_page"))
     if new_psw != confirm_psw:
-        flash('Current password don\'t match the confirm password', 'change')
+        flash('New password don\'t match the confirm password', 'change')
         return redirect(url_for("profile.profile_page"))
     user = User.query.filter_by(id=g.user.id).first()
     user.password = sha256_crypt.hash(new_psw)

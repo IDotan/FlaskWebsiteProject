@@ -6,19 +6,24 @@ from flaskr import create_app
 __author__ = "Itai Dotan"
 
 
+def pytest_sessionstart():
+    # pass
+    shutil.copy(r"./flaskr/test.db", r"./flaskr/test_this.db")
+
+
+def pytest_sessionfinish():
+    # pass
+    os.remove(r"./flaskr/test_this.db")
+
+
 @pytest.fixture
 def app():
-    os.rename(r"./flaskr/users.db", r"./flaskr/back.db")
-    shutil.copy(r"./flaskr/test.db", r"./flaskr/users.db")
-
     app = create_app()
     app.config['TESTING'] = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test_this.db'
     with app.test_client() as client:
         app.teardown_request
         yield client
-
-    os.remove(r"./flaskr/users.db")
-    os.rename(r"./flaskr/back.db", r"./flaskr/users.db")
 
 
 @pytest.fixture
