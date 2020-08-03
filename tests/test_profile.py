@@ -144,6 +144,7 @@ def test_delete_with_upload_pic(client):
     assert UsersToDo.query.filter_by(user_id=user_id).all() == []
     assert User.query.filter_by(user_name="delete_test").first() is None
 
+
 # not really needed and cant delete after changing the db to load only at the start and delete at the end
 # def test_delete_random_pic(client):
 #     client.post('/login', data=dict(username="delete_test", psw="Hello*1234"))
