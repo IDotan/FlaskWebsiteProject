@@ -7,12 +7,10 @@ __author__ = "Itai Dotan"
 
 
 def pytest_sessionstart():
-    # pass
     shutil.copy(r"./flaskr/test.db", r"./flaskr/test_this.db")
 
 
 def pytest_sessionfinish():
-    # pass
     os.remove(r"./flaskr/test_this.db")
 
 
