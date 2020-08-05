@@ -113,11 +113,14 @@ def test_upload_no_file(client):
 
 def test_upload_not_valid_file(client):
     client.post('/login', data=dict(username="delete_test", psw="Hello*1234"))
-    pic = str(os.getcwd()) + r'\flaskr\test.txt'
-    with open(pic, 'rb') as jpg:
+    file_path = str(os.getcwd()) + r'\flaskr\test.txt'
+    with open(file_path, 'w') as file:
+        file.write("upload test.\n not allowed file type")
+    with open(file_path, 'rb') as jpg:
         rv = client.post('/upload_pic', data=dict(file=jpg),
                          content_type='multipart/form-data', follow_redirects=True)
     assert b'Not allowed file type' in rv.data
+    os.remove(file_path)
 
 
 def test_delete_wrong_password(client):

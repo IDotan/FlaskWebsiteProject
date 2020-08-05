@@ -1,2 +1,0 @@
-upload test.
-not allowed file type
