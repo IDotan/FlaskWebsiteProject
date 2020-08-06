@@ -8,7 +8,7 @@ work in progress
 * ToDo list work both with logged and not logged user.
 
 ### working on:
-* CSS to all the pages so far, learning almost from scratch may take some time.
+* CSS to all the pages so far, may take some time.
 
 ### Next up:
 * GUI for the site start with build in option changes.
