@@ -1,29 +1,46 @@
+body {
+    margin: 0;
+}
+
 nav.navigation-bar {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
-  }
-  
-  nav.navigation-bar li {float: left;}
-  nav.navigation-bar li.user-nav {float: right;}
-  
-  nav.navigation-bar li a {
+    background-color: #454641;
+}
+
+nav.navigation-bar li {
+    float: left;
+}
+
+nav.navigation-bar li.user-nav {
+    float: right;
+}
+
+nav.navigation-bar li a {
     display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-  }
-  
-  nav.navigation-bar li:hover:not(.active) {background-color: #111;}
-  
-  nav.navigation-bar li.active {background-color: #4CAF50;}
-  
-  nav.navigation-bar li.right {float: right;}
-  
-  @media screen and (max-width: 600px) {
-    nav.navigation-bar li.right, 
-    nav.navigation-bar li {float: none;}
-  }
+}
+
+nav.navigation-bar li:hover:not(.active):not(.user-name) {
+    background-color: #000000;
+}
+
+nav.navigation-bar li.active {
+    background-color: #4C98AF;
+}
+
+nav.navigation-bar li.right {
+    float: right;
+}
+
+@media screen and (max-width: 600px) {
+    nav.navigation-bar li.right,
+    nav.navigation-bar li {
+        float: none;
+    }
+}
