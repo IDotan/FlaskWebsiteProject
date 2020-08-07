@@ -1,23 +1,23 @@
 function validateForm() {
-    if (document.getElementById('pswError').hidden == false){            
+    if (document.getElementById('pswError').hidden == false) {
         return false;
     }
 }
 
 const psw_input = document.getElementById('new_psw');
 const psw_error = document.getElementById('pswError');
-psw_input.addEventListener('focusout', function (event) {
+psw_input.addEventListener('focusout', function(event) {
     var userCheck = isOkPass(psw_input.value);
     if (userCheck.result == false) {
         //show the error
         psw_error.innerText = userCheck.error;
         psw_error.hidden = false;
-    }
-    else {
+    } else {
         psw_error.innerText = "";
         psw_error.hidden = true;
     }
 });
+
 function isOkPass(p) {
     var anUpperCase = /[A-Z]/;
     var aLowerCase = /[a-z]/;
@@ -53,4 +53,32 @@ function isOkPass(p) {
         return obj;
     }
     return obj;
+}
+
+
+function general() {
+    document.getElementsByClassName("general")[0].hidden = false
+    document.getElementsByClassName("psw_change")[0].hidden = true
+    document.getElementsByClassName("delete-confirmation")[0].hidden = true
+    document.getElementsByClassName("menu-general")[0].classList.add("active")
+    document.getElementsByClassName("menu-change")[0].classList.remove("active")
+    document.getElementsByClassName("menu-delete")[0].classList.remove("active")
+}
+
+function change() {
+    document.getElementsByClassName("general")[0].hidden = true
+    document.getElementsByClassName("psw_change")[0].hidden = false
+    document.getElementsByClassName("delete-confirmation")[0].hidden = true
+    document.getElementsByClassName("menu-general")[0].classList.remove("active")
+    document.getElementsByClassName("menu-change")[0].classList.add("active")
+    document.getElementsByClassName("menu-delete")[0].classList.remove("active")
+}
+
+function deleteUser() {
+    document.getElementsByClassName("general")[0].hidden = true
+    document.getElementsByClassName("psw_change")[0].hidden = true
+    document.getElementsByClassName("delete-confirmation")[0].hidden = false
+    document.getElementsByClassName("menu-general")[0].classList.remove("active")
+    document.getElementsByClassName("menu-change")[0].classList.remove("active")
+    document.getElementsByClassName("menu-delete")[0].classList.add("active")
 }

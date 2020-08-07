@@ -1,78 +1,74 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel='stylesheet' type='text/css' media='screen' href="static/styles/profile.css">
 </head>
 
 <body>
-    <div>
-        <img src={{profile_pic}} alt="profile picture" width="150" height="150" style="border-radius: 50%;">
-        {{name}}
-        <form method="POST" action="{{ url_for('profile.upload_file') }}" enctype=multipart/form-data>
-            {% with upload = get_flashed_messages(category_filter=["upload"]) %}
-            {% if upload %}
-            <div class="alert-message block-message upload">
-                {%- for msg in upload %}    
-                <li>{{ msg }}</li>
-                {% endfor -%}
-            </div>
-            {% endif %}
-            {% endwith %}
-            {{upload2}}
-            <label for="UploadPic">Upload profile picture</label><br>
-            <input type="file" id="myFile" name="file">
-            <input class="submit-button" type="submit" value="Upload">
-        </form>
+    <div class="side-menu">
+        <li class="menu-general active"><a href="JavaScript:general()">General</a></li>
+        <li class="menu-change"><a href="JavaScript:change()">Change Password</a></li>
+        <li class="menu-delete"><a href="JavaScript:deleteUser()">Delete Account</a></li>
     </div>
-    <div>
-        <form action="{{ url_for('profile.pick_random') }}" method="POST">
-            <button type="submit" value="Submit">New Random picture</button>
-        </form>
-    </div>
-    <br>
-    <div class='psw_change'>
-        <form class="change-password" action="{{ url_for('profile.profile_psw_change') }} " method="POST" onsubmit="return validateForm()">
-            {% with change = get_flashed_messages(category_filter=["change"]) %}
-            {% if change %}
-            <div class="alert-message block-message change">
-                {%- for msg in change %}    
-                <li>{{ msg }}</li>
-                {% endfor -%}
-            </div>
-            {% endif %}
-            {% endwith %}
-            <div>
-                <label for="old_psw">Current password:</label>
-                <input type="password" id="old_psw" name="old_psw" required>
-            </div>
-            <div>
-                <span id="pswError" class="error" hidden></span>
-            </div>
-            <div>
-                <span id="pswError" class="error" hidden></span>
-                <label for="new_psw">New password:</label>
-                <input type="password" id="new_psw" name="new_psw" required>
-            </div>
-            <div>
-                <label for="confirm_psw">Confirm password:</label>
-                <input type="password" id="confirm_psw" name="confirm_psw" required>
-            </div>
-            <input class="submit-button" type="submit" value="Change password">
-        </form>
+    <div class="profile-info">
+        <div class="general">
+            <img src={{profile_pic}} alt="profile picture" width="150" height="150" style="border-radius: 50%;"> {{name}}
+            <form method="POST" action="{{ url_for('profile.upload_file') }}" enctype=multipart/form-data>
+                {% with upload = get_flashed_messages(category_filter=["upload"]) %} {% if upload %}
+                <div class="alert-message block-message upload">
+                    {%- for msg in upload %}
+                    <li>{{ msg }}</li>
+                    {% endfor -%}
+                </div>
+                {% endif %} {% endwith %} {{upload2}}
+                <label for="UploadPic">Upload profile picture</label><br>
+                <input type="file" id="myFile" name="file">
+                <input class="submit-button" type="submit" value="Upload">
+            </form>
+
+            <form action="{{ url_for('profile.pick_random') }}" method="POST">
+                <button type="submit" value="Submit">New Random picture</button>
+            </form>
+        </div>
         <br>
-        <div class="delete-confirmation ">
-            <span>This can not be undone, make sure you saved all you need from the site.</span>
-            {% with delete = get_flashed_messages(category_filter=["delete"]) %}
-            {% if delete %}
+        <div class='psw_change' hidden>
+            <form class="change-password" action="{{ url_for('profile.profile_psw_change') }} " method="POST" onsubmit="return validateForm()">
+                {% with change = get_flashed_messages(category_filter=["change"]) %} {% if change %}
+                <div class="alert-message block-message change">
+                    {%- for msg in change %}
+                    <li>{{ msg }}</li>
+                    {% endfor -%}
+                </div>
+                {% endif %} {% endwith %}
+                <div>
+                    <label for="old_psw">Current password:</label>
+                    <input type="password" id="old_psw" name="old_psw" required>
+                </div>
+                <div>
+                    <span id="pswError" class="error" hidden></span>
+                </div>
+                <div>
+                    <span id="pswError" class="error" hidden></span>
+                    <label for="new_psw">New password:</label>
+                    <input type="password" id="new_psw" name="new_psw" required>
+                </div>
+                <div>
+                    <label for="confirm_psw">Confirm password:</label>
+                    <input type="password" id="confirm_psw" name="confirm_psw" required>
+                </div>
+                <input class="submit-button" type="submit" value="Change password">
+            </form>
+        </div>
+        <br>
+        <div class="delete-confirmation" hidden>
+            <span>This can not be undone, make sure you saved all you need from the site.</span> {% with delete = get_flashed_messages(category_filter=["delete"]) %} {% if delete %}
             <div class="alert-message block-message change">
-                {%- for msg in delete %}    
+                {%- for msg in delete %}
                 <li>{{ msg }}</li>
                 {% endfor -%}
             </div>
-            {% endif %}
-            {% endwith %}
+            {% endif %} {% endwith %}
             <form class="delete-form" action="{{ url_for('profile.delete_account') }}" method="POST">
                 <label for="delete_psw">Password:</label>
                 <input type="password" id="delete_psw" name="delete_psw" autocomplete="off" required>

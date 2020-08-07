@@ -1,0 +1,29 @@
+.side-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 10%;
+    background-color: #f1f1f1;
+    height: 100%;
+    position: fixed;
+    overflow: auto;
+}
+
+.side-menu a {
+    display: block;
+    color: #000;
+    text-decoration: none;
+    padding: 14px 16px;
+    text-align: center;
+    font-size: 120%;
+}
+
+.side-menu .active {
+    background-color: #328f0891;
+}
+
+.profile-info {
+    margin-left: 10%;
+    padding: 1px 16px;
+    height: 1000px;
+}
