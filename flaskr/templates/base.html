@@ -5,47 +5,53 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Flask Web Project</title>
-    <link rel="stylesheet" href="" />
+    <link rel='stylesheet' type='text/css' media='screen' href="static/styles/navbar.css">
 </head>
 
 <body>
     <section class="navigation">
-            <nav class="navigation-bar">
-                <div class="container">
-                            <a href="{{ url_for('main.index') }}" >
-                                Home
-                            </a> |
-                            <a href="{{ url_for('toDoList.to_do_list') }}" >
-                                ToDoList
-                            </a> |
-                            {% if name %}
-                            <a href="{{ url_for('profile.profile_page') }}" >
-                                profile
-                            </a> |
-                            <a href="{{ url_for('auth.logout') }}" >
-                                Logout
-                            </a>
-                            {% else %}
-                            <a href="{{ url_for('auth.login') }}" >
-                                Login
-                            </a> |
-                            <a href="{{ url_for('auth.signup') }}" >
-                                Sign Up
-                            </a>
-                            {% endif %}                            
-                        </div>
-                    </div>
-                </div>
-            </nav>
+        <nav class="navigation-bar">
+            <li class="nav-home">
+                <a href="{{ url_for('main.index') }}">
+                    Home
+                </a>
+            </li>
+            <li class="nav-toDo">
+                <a href="{{ url_for('toDoList.to_do_list') }}">
+                    ToDoList
+                </a>
+            </li>
+            {% if name %}
+            <li class="nav-profile">
+                <a href="{{ url_for('profile.profile_page') }}">
+                    profile
+                </a>
+            </li>
+            <li class="user-nav">
+                <a href="{{ url_for('auth.logout') }}">
+                    Logout
+                </a>
+            </li>
+            {% else %}
+            <li class="user-nav nav-signIn">
+                <a href="{{ url_for('auth.login') }}">
+                    Login
+                </a>
+            </li>
+            <li class="user-nav nav-signUp">
+                <a href="{{ url_for('auth.signup') }}">
+                    Sign Up
+                </a>
+            </li>
+            {% endif %}
+        </nav>
     </section>
     <section>
-        <div class="hero-body">
-            <div class="container has-text-centered">
-               {% block content %}
-               {% endblock %}
-            </div>
-        </div>
+        {% block content %}
+        {% endblock %}
     </section>
+    <script type="text/javascript" src="static\scripts\navbar.js"></script>
+
 </body>
 
 </html>
