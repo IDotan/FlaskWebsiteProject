@@ -9,14 +9,17 @@ toDoList = Blueprint('toDoList', __name__)
 
 
 @toDoList.route('/toDoList')
+@check_session
 def to_do_list():
     try:
         user_id = session["id"]
         list_items = UsersToDo.query.filter_by(user_id=user_id).all()
+        name = g.user.first_name
     except KeyError:
         user_id = None
         list_items = []
-    return render_template('toDoList.html', list_itemss=list_items, user_id=user_id)
+        name = ""
+    return render_template('toDoList.html', list_itemss=list_items, user_id=user_id, name=name)
 
 
 @toDoList.route('/addJq', methods=['POST'])

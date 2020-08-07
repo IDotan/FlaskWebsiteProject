@@ -17,7 +17,7 @@ nav.navigation-bar {
     text-decoration: none;
   }
   
-  nav.navigation-bar li a:hover:not(.active) {background-color: #111;}
+  nav.navigation-bar li:hover:not(.active) {background-color: #111;}
   
   nav.navigation-bar li.active {background-color: #4CAF50;}
   
