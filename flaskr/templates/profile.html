@@ -1,6 +1,7 @@
 {% extends "base.html" %} {% block content %}
 
 <head>
+    <script src="https://kit.fontawesome.com/06e8a59cca.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel='stylesheet' type='text/css' media='screen' href="static/styles/profile.css">
 </head>
@@ -13,22 +14,24 @@
     </div>
     <div class="profile-info">
         <div class="general">
-            <img src={{profile_pic}} alt="profile picture" width="150" height="150" style="border-radius: 50%;"> {{name}}
+            <img src={{profile_pic}} alt="profile picture" width="150" height="150" style="border-radius: 50%;">
+            <br>
+            <span class="user-name">{{name}}</span>
             <form method="POST" action="{{ url_for('profile.upload_file') }}" enctype=multipart/form-data>
                 {% with upload = get_flashed_messages(category_filter=["upload"]) %} {% if upload %}
                 <div class="alert-message block-message upload">
-                    {%- for msg in upload %}
+                    <i class="fas fa-exclamation"></i> {%- for msg in upload %}
                     <li>{{ msg }}</li>
                     {% endfor -%}
                 </div>
                 {% endif %} {% endwith %} {{upload2}}
                 <label for="UploadPic">Upload profile picture</label><br>
-                <input type="file" id="myFile" name="file">
-                <input class="submit-button" type="submit" value="Upload">
+                <input class="button" type="file" id="myFile" name="file">
+                <input class="submit-button button" type="submit" value="Upload">
             </form>
 
             <form action="{{ url_for('profile.pick_random') }}" method="POST">
-                <button type="submit" value="Submit">New Random picture</button>
+                <button class="button" type="submit" value="Submit">New Random picture</button>
             </form>
         </div>
         <br>
@@ -37,49 +40,43 @@
                 {% with change = get_flashed_messages(category_filter=["change"]) %} {% if change %}
                 <div class="alert-message block-message change">
                     {%- for msg in change %}
-                    <li>{{ msg }}</li>
-                    {% endfor -%}
+                    <span>{{ msg }}</span> {% endfor -%}
                 </div>
                 {% endif %} {% endwith %}
-                <div>
-                    <label for="old_psw">Current password:</label>
-                    <input type="password" id="old_psw" name="old_psw" required>
-                </div>
-                <div>
-                    <span id="pswError" class="error" hidden></span>
-                </div>
-                <div>
-                    <span id="pswError" class="error" hidden></span>
-                    <label for="new_psw">New password:</label>
-                    <input type="password" id="new_psw" name="new_psw" required>
-                </div>
-                <div>
-                    <label for="confirm_psw">Confirm password:</label>
-                    <input type="password" id="confirm_psw" name="confirm_psw" required>
-                </div>
-                <input class="submit-button" type="submit" value="Change password">
+                <div class="change-form-continer">
+                    <div class="grid-continer">
+                        <label for="old_psw">Current password:</label>
+                        <input type="password" id="old_psw" name="old_psw" required>
+                    </div>
+                    <span id="pswError" class="error change-psw-error" hidden></span>
+                    <div class=grid-continer>
+                        <label for="new_psw">New password:</label>
+                        <input type="password" id="new_psw" name="new_psw" required>
+                        <label for="confirm_psw">Confirm password:</label>
+                        <input type="password" id="confirm_psw" name="confirm_psw" required>
+                    </div>
+                    <input class="submit-button" type="submit" value="Change password">
             </form>
-        </div>
-        <br>
-        <div class="delete-confirmation" hidden>
-            <span>This can not be undone, make sure you saved all you need from the site.</span> {% with delete = get_flashed_messages(category_filter=["delete"]) %} {% if delete %}
-            <div class="alert-message block-message change">
-                {%- for msg in delete %}
-                <li>{{ msg }}</li>
-                {% endfor -%}
             </div>
-            {% endif %} {% endwith %}
-            <form class="delete-form" action="{{ url_for('profile.delete_account') }}" method="POST">
-                <label for="delete_psw">Password:</label>
-                <input type="password" id="delete_psw" name="delete_psw" autocomplete="off" required>
-                <input class="submit-button" type="submit" value="Delete">
-            </form>
+            <br>
+            <div class="delete-confirmation" hidden>
+                <span>This can not be undone, make sure you saved all you need from the site.</span> {% with delete = get_flashed_messages(category_filter=["delete"]) %} {% if delete %}
+                <div class="alert-message block-message change">
+                    {%- for msg in delete %}
+                    <span>{{ msg }}</span> {% endfor -%}
+                </div>
+                {% endif %} {% endwith %}
+                <form class="delete-form" action="{{ url_for('profile.delete_account') }}" method="POST">
+                    <label for="delete_psw">Password:</label>
+                    <input type="password" id="delete_psw" name="delete_psw" autocomplete="off" required>
+                    <input class="submit-button" type="submit" value="Delete">
+                </form>
+            </div>
         </div>
-    </div>
-    <script>
-        var deleteLink = "{{ url_for('profile.delete_account') }}"
-    </script>
-    <script type="text/javascript" src="static\scripts\profile.js"></script>
+        <script>
+            var deleteLink = "{{ url_for('profile.delete_account') }}"
+        </script>
+        <script type="text/javascript" src="static\scripts\profile.js"></script>
 </body>
 
 {% endblock %}

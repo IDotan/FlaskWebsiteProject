@@ -82,3 +82,9 @@ function deleteUser() {
     document.getElementsByClassName("menu-change")[0].classList.remove("active")
     document.getElementsByClassName("menu-delete")[0].classList.add("active")
 }
+
+window.onload = function() {
+    if (String(location).includes("psw")) {
+        change()
+    }
+}

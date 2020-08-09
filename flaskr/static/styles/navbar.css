@@ -34,13 +34,12 @@ nav.navigation-bar li.active {
     background-color: #4C98AF;
 }
 
-nav.navigation-bar li.right {
-    float: right;
-}
-
 @media screen and (max-width: 600px) {
     nav.navigation-bar li.right,
     nav.navigation-bar li {
+        float: none;
+    }
+    nav.navigation-bar li.user-nav {
         float: none;
     }
 }

@@ -1,3 +1,5 @@
+/* tab menu */
+
 .side-menu {
     list-style-type: none;
     margin: 0;
@@ -22,8 +24,93 @@
     background-color: #328f0891;
 }
 
+
+/* general tab */
+
 .profile-info {
     margin-left: 10%;
-    padding: 1px 16px;
-    height: 1000px;
+    padding: 10px 16px;
+    font-size: large;
+}
+
+.profile-info form {
+    margin-bottom: 10px;
+}
+
+.user-name {
+    display: block;
+    padding: 10px 10px;
+    font-size: x-large;
+}
+
+.alert-message.block-message.upload {
+    list-style: none;
+    font-size: small;
+    color: red;
+    font-style: italic;
+    font-weight: bold;
+    background-color: #cac9c9;
+    width: max-content;
+    padding: 15px;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 10px;
+    margin-bottom: 10px;
+}
+
+.fas.fa-exclamation {
+    scale: 170%;
+    position: relative;
+    top: 10px;
+}
+
+.alert-message.block-message.upload li {
+    grid-column: 2;
+}
+
+.button {
+    font-size: medium;
+}
+
+
+/* change tab */
+
+.change-password {
+    display: block;
+    width: 325px;
+}
+
+.change-form-continer div.grid-continer {
+    display: grid;
+    grid-template-columns: 155px max-content;
+    grid-column-gap: 5px;
+    grid-row-gap: 10px;
+    padding-bottom: 10px;
+}
+
+.change-form-continer .submit-button {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.alert-message.block-message.change {
+    text-align: center;
+    color: rgba(255, 0, 0, 0.822);
+    background-color: #cac9c9;
+    width: inherit;
+    display: block;
+    margin-bottom: 5px;
+    margin-top: -6px;
+    width: 70%;
+}
+
+.change-psw-error {
+    text-align: center;
+    color: rgba(255, 0, 0, 0.822);
+    background-color: #cac9c9;
+    width: inherit;
+    display: block;
+    margin-bottom: 5px;
+    margin-top: -6px;
+    width: 70%;
 }

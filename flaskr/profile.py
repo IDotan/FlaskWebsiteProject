@@ -57,21 +57,21 @@ def profile_psw_change():
     confirm_psw = request.form['confirm_psw']
     if not sha256_crypt.verify(old_psw, g.user.password):
         flash('Current password incorrect', 'change')
-        return redirect(url_for("profile.profile_page"))
+        return redirect(url_for("profile.profile_page", tab="psw"))
     if old_psw == new_psw:
         flash('New password can\'t be the same as the old password', 'change')
-        return redirect(url_for("profile.profile_page"))
+        return redirect(url_for("profile.profile_page", tab="psw"))
     if not valid_psw(new_psw):
         flash('New password is invalid', 'change')
-        return redirect(url_for("profile.profile_page"))
+        return redirect(url_for("profile.profile_page", tab="psw"))
     if new_psw != confirm_psw:
         flash('New password don\'t match the confirm password', 'change')
-        return redirect(url_for("profile.profile_page"))
+        return redirect(url_for("profile.profile_page", tab="psw"))
     user = User.query.filter_by(id=g.user.id).first()
     user.password = sha256_crypt.hash(new_psw)
     users_db.session.commit()
     flash('Your password was changed', 'change')
-    return redirect(url_for("profile.profile_page"))
+    return redirect(url_for("profile.profile_page", tab="psw"))
 
 
 @profile.route('/delete_account', methods=['POST'])
