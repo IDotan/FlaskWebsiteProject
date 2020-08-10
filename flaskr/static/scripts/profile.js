@@ -87,4 +87,7 @@ window.onload = function() {
     if (String(location).includes("psw")) {
         change()
     }
+    if (String(location).includes("delete")) {
+        deleteUser()
+    }
 }

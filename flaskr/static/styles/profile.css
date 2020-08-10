@@ -20,12 +20,31 @@
     font-size: 120%;
 }
 
-.side-menu .active {
-    background-color: #328f0891;
+.side-menu .active:not(.menu-delete) {
+    background-color: #4bbe16c4;
 }
 
+.side-menu .menu-delete.active {
+    background-color: rgb(168, 167, 167);
+}
 
-/* general tab */
+.side-menu li:hover:not(.active) {
+    background-color: #7fc55f5d;
+}
+
+.fa-exclamation-triangle {
+    display: none;
+}
+
+.side-menu>li.menu-delete:hover>a,
+li.menu-delete.active>a {
+    color: rgb(184, 14, 14);
+}
+
+.side-menu>li.menu-delete:hover>a>i,
+li.menu-delete.active>a>i {
+    display: contents;
+}
 
 .profile-info {
     margin-left: 10%;
@@ -36,6 +55,9 @@
 .profile-info form {
     margin-bottom: 10px;
 }
+
+
+/* general tab */
 
 .user-name {
     display: block;
@@ -93,17 +115,7 @@
     grid-column-end: 2;
 }
 
-.alert-message.block-message.change {
-    text-align: center;
-    color: rgba(255, 0, 0, 0.822);
-    background-color: #cac9c9;
-    width: inherit;
-    display: block;
-    margin-bottom: 5px;
-    margin-top: -6px;
-    width: 70%;
-}
-
+.alert-message.block-message.change,
 .change-psw-error {
     text-align: center;
     color: rgba(255, 0, 0, 0.822);

@@ -10,4 +10,5 @@ if __name__ == "__main__":
     toDoList_db.create_all(app=create_app())
     app = create_app()
     app.permanent_session_lifetime = session_lif_time
+    """ host='0.0.0.0' """
     app.run(debug=True)

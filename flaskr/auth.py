@@ -90,6 +90,7 @@ def signup_post():
     new_user_session = User.query.filter_by(user_name=user_name).first()
     session["id"] = new_user_session.id
     g.user = new_user_session
+    # :todo new friend css and java script to go to home
     return redirect(url_for('main.new_friend'))
 
 

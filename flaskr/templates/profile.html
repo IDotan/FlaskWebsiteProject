@@ -10,7 +10,10 @@
     <div class="side-menu">
         <li class="menu-general active"><a href="JavaScript:general()">General</a></li>
         <li class="menu-change"><a href="JavaScript:change()">Change Password</a></li>
-        <li class="menu-delete"><a href="JavaScript:deleteUser()">Delete Account</a></li>
+        <li class="menu-delete">
+            <a href="JavaScript:deleteUser()">
+                <i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Delete Account</a>
+        </li>
     </div>
     <div class="profile-info">
         <div class="general">
@@ -58,25 +61,22 @@
                     <input class="submit-button" type="submit" value="Change password">
             </form>
             </div>
-            <br>
-            <div class="delete-confirmation" hidden>
-                <span>This can not be undone, make sure you saved all you need from the site.</span> {% with delete = get_flashed_messages(category_filter=["delete"]) %} {% if delete %}
-                <div class="alert-message block-message change">
-                    {%- for msg in delete %}
-                    <span>{{ msg }}</span> {% endfor -%}
-                </div>
-                {% endif %} {% endwith %}
-                <form class="delete-form" action="{{ url_for('profile.delete_account') }}" method="POST">
-                    <label for="delete_psw">Password:</label>
-                    <input type="password" id="delete_psw" name="delete_psw" autocomplete="off" required>
-                    <input class="submit-button" type="submit" value="Delete">
-                </form>
-            </div>
         </div>
-        <script>
-            var deleteLink = "{{ url_for('profile.delete_account') }}"
-        </script>
+        <div class="delete-confirmation" hidden>
+            <span>This can not be undone, make sure you saved all you need from the site.</span> {% with delete = get_flashed_messages(category_filter=["delete"]) %} {% if delete %}
+            <div class="alert-message block-message change">
+                {%- for msg in delete %}
+                <span>{{ msg }}</span> {% endfor -%}
+            </div>
+            {% endif %} {% endwith %}
+            <form class="delete-form" action="{{ url_for('profile.delete_account') }}" method="POST">
+                <label for="delete_psw">Password:</label>
+                <input type="password" id="delete_psw" name="delete_psw" autocomplete="off" required>
+                <input class="submit-button" type="submit" value="Delete">
+            </form>
+        </div>
         <script type="text/javascript" src="static\scripts\profile.js"></script>
+    </div>
 </body>
 
 {% endblock %}

@@ -26,7 +26,7 @@ nav.navigation-bar li a {
     text-decoration: none;
 }
 
-nav.navigation-bar li:hover:not(.active):not(.user-name) {
+nav.navigation-bar li:hover:not(.active) {
     background-color: #000000;
 }
 
