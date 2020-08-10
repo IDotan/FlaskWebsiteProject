@@ -28,8 +28,12 @@
     background-color: rgb(168, 167, 167);
 }
 
-.side-menu li:hover:not(.active) {
+.side-menu li:hover:not(.active):not(.menu-delete) {
     background-color: #7fc55f5d;
+}
+
+.side-menu li.menu-delete:hover {
+    background-color: rgb(168, 167, 167);
 }
 
 .fa-exclamation-triangle {
