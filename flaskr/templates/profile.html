@@ -64,7 +64,7 @@
         </div>
         <div class="delete-confirmation" hidden>
             <span>This can not be undone, make sure you saved all you need from the site.</span> {% with delete = get_flashed_messages(category_filter=["delete"]) %} {% if delete %}
-            <div class="alert-message block-message change">
+            <div class="alert-message delete-msg">
                 {%- for msg in delete %}
                 <span>{{ msg }}</span> {% endfor -%}
             </div>

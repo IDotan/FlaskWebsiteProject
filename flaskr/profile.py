@@ -80,7 +80,7 @@ def delete_account():
     user_id = g.user.id
     psw = request.form['delete_psw']
     if not sha256_crypt.verify(psw, g.user.password):
-        flash('Current password incorrect', 'delete')
+        flash("Incorrect password", 'delete')
         return redirect(url_for("profile.profile_page", tab="delete"))
     # delete user data
     user = User.query.filter_by(id=user_id).first()
