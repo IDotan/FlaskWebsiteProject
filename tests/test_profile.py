@@ -127,7 +127,7 @@ def test_delete_wrong_password(client):
     client.post('/login', data=dict(username="delete_test", psw="Hello*1234"))
     rv = client.post('/delete_account', data=dict(delete_psw='Good*1234'),
                      follow_redirects=True)
-    assert b'Current password incorrect' in rv.data
+    assert b'Incorrect password' in rv.data
 
 
 def test_delete_with_upload_pic(client):

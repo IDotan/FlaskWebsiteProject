@@ -10,8 +10,8 @@ function addJq() {
                 $(".list-items").append(
                     '<li class="not-marked" id="task" note_id="' + data.note_id + '"><span class="completeJq todo-item">' + data.note + '</span> \
                         <div class="list-item-button-continer"> \
-                            <input type="button" value="Complete" class="completeJq complete-button"> \
-                            <input class="deleteJq eraser" type="image" src="/static/img/eraser.png" value="Delete"> \
+                        <input type="image" src="/static/img/checkmark.png" value="Complete" title="Toggle status" class="completeJq complete-button"> \
+                        <input class="deleteJq eraser" type="image" src="/static/img/eraser.png" title="Delete" value="Delete"> \
                         </div>\
                     </li>')
             };
@@ -68,12 +68,14 @@ function add() {
     $(".list-items").append(
             '<li class="not-marked" id="task"><span class="complete todo-item">' + $("#todoitem").val() + '</span> \
                 <div class="list-item-button-continer"> \
-                    <input type="button" value="Complete" class="complete complete-button"> \
-                    <input class="delete eraser" type="image" src="/static/img/eraser.png" value="Delete"> \
+                    <input type="image" src="/static/img/checkmark.png" value="Complete" class="complete complete-button" title="Toggle status"> \
+                    <input class="delete eraser" type="image" src="/static/img/eraser.png" value="Delete" title="Delete"> \
                 </div>\
         </li>')
-        // <input type="button" value="Complete" class="Complete"> \
-        // <input type="button" value="Delete" class="delete">  \
+        /*
+            <input type="image" src='/static/img/checkmark.png' value="Complete" title="Toggle status" class="completeJq complete-button">
+            <input class="deleteJq eraser" type="image" src='/static/img/eraser.png' title="Delete" value="Delete">
+        */
 };
 
 $(document).on('click', '.delete', function() {

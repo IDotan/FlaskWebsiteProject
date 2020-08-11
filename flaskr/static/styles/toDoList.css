@@ -69,7 +69,14 @@ li.marked::before {
 
 .eraser {
     position: relative;
-    top: 10px;
+    top: 5px;
+    width: 30px;
+    height: 30px;
+}
+
+.complete-button {
+    position: relative;
+    top: 5px;
     width: 30px;
     height: 30px;
 }

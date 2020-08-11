@@ -21,8 +21,8 @@
                 <li class='{% if todo.complete %}marked{% else %}not-marked{% endif %}' id="task" note_id="{{todo.id}}">
                     <span class="completeJq-item todo-item">{{ todo.text }}</span>
                     <div class="list-item-button-continer">
-                        <input type="button" value="Complete" class="completeJq complete-button">
-                        <input class="deleteJq eraser" type="image" src='/static/img/eraser.png' value="Delete">
+                        <input type="image" src='/static/img/checkmark.png' value="Complete" title="Toggle status" class="completeJq complete-button">
+                        <input class="deleteJq eraser" type="image" src='/static/img/eraser.png' title="Delete" value="Delete">
                     </div>
                 </li>
                 {% endfor %}
