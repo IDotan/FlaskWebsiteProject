@@ -1,37 +1,41 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <title>To Do List</title>
+
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel='stylesheet' type='text/css' media='screen' href="static/styles/toDoList.css">
+    <link href='https://fonts.googleapis.com/css?family=Charm' rel='stylesheet'>
 </head>
-<body>  
-    <h1>Todo List</h1>  
-    <div>Add a new todo item:
-        {% if user_id != None %}
-            <input type="text" name="todoitem" id="todoitem" maxlength="100">
-            <input type="button" value="Add Item" onclick="addJq()">            
-        {% else %}
-        <input type="text" name="todoitem" id="todoitem">  
-        <input type="button" value="Add Item" onclick="add()">  
-        {% endif %}
-    </div>  
-    <div >  
-        <ul class="list-items">
-            {% for todo in list_itemss %} 
-                <li class='{% if todo.complete %}marked{% else %}not-marked{% endif %}' id="task" note_id="{{todo.id}}">{{ todo.text }}
-                    <input type="button" value="Complete" class="completeJq"> 
-                    <input type="button" value="Delete" class="deleteJq">          
-                </li>               
-            {% endfor %}
-        </ul>
-    </div>  
+
+<body>
+    <div class='todo-continer'>
+        <div><span>I need to do... </span>{% if user_id != None %}
+            <input class="todo-input" type="text" name="todoitem" id="todoitem" maxlength="100" autofocus placeholder="this task">
+            <input class="todo-input-pencil" type="image" src='/static/img/pencil.png' value="Add Item" onclick="addJq()"> {% else %}
+            <input class="todo-input" type="text" name="todoitem" id="todoitem" maxlength="100" autofocus placeholder="this task">
+            <input class="todo-input-pencil" type="image" src='/static/img/pencil.png' value="Add Item" onclick="add()"> {% endif %}
+        </div>
+        <div>
+            <ul class="list-items ">
+                {% for todo in list_itemss %}
+                <li class='{% if todo.complete %}marked{% else %}not-marked{% endif %}' id="task" note_id="{{todo.id}}">
+                    <span class="completeJq-item todo-item">{{ todo.text }}</span>
+                    <div class="list-item-button-continer">
+                        <input type="button" value="Complete" class="completeJq complete-button">
+                        <input class="deleteJq eraser" type="image" src='/static/img/eraser.png' value="Delete">
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
     <script>
-        var addLink = "{{ url_for('toDoList.add_jq') }}"
-        var deleteLink = "{{ url_for('toDoList.delete_jp') }}"
-        var completeLink =  "{{ url_for('toDoList.complete_jq') }}"
+        var addLink = "{{ url_for( 'toDoList.add_jq') }}"
+        var deleteLink = "{{ url_for( 'toDoList.delete_jp') }}"
+        var completeLink = "{{ url_for( 'toDoList.complete_jq') }}"
     </script>
     <script type="text/javascript" src="static\scripts\toDoList.js"></script>
-</body>  
+</body>
+
 </html>
 {% endblock %}

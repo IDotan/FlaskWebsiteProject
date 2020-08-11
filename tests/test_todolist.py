@@ -6,13 +6,13 @@ note_2 = None
 
 def test_not_logged(client):
     rv = client.get('/toDoList')
-    assert b'Todo List' in rv.data
+    assert b'I need to do...' in rv.data
 
 
 def test_logged(client):
     client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
     rv = client.get('/toDoList')
-    assert b'Todo List' in rv.data
+    assert b'I need to do...' in rv.data
 
 
 # add tests

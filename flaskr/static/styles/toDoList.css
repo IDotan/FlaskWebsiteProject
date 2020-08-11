@@ -1,0 +1,75 @@
+.todo-continer {
+    padding-left: 10px;
+    padding-top: 20px;
+    font-family: 'Charm';
+    font-size: xx-large;
+}
+
+.todo-input {
+    border: none;
+    border-color: transparent;
+    font-family: 'Charm';
+    font-size: xx-large;
+    width: 25%;
+}
+
+.todo-input-pencil {
+    position: relative;
+    top: 10px;
+    height: 40px;
+    width: 40px;
+}
+
+
+/* todo item */
+
+.list-items {
+    list-style-type: none;
+    margin: 0;
+    width: max-content;
+}
+
+.marked,
+.not-marked {
+    position: relative;
+}
+
+.marked>.todo-item:hover {
+    text-decoration: line-through;
+    opacity: 30%;
+}
+
+.not-marked>.todo-item:hover {
+    text-decoration: line-through;
+    opacity: 70%;
+}
+
+.marked>span {
+    text-decoration: line-through;
+}
+
+li.marked::before {
+    content: '';
+    position: absolute;
+    border-color: rgb(0, 0, 0);
+    border-style: solid;
+    border-width: 0 3px 3px 0;
+    left: -20px;
+    top: 15px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
+}
+
+.list-item-button-continer {
+    position: relative;
+    float: right;
+    left: 25px;
+}
+
+.eraser {
+    position: relative;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+}
