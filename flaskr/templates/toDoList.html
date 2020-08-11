@@ -1,5 +1,4 @@
 {% extends "base.html" %} {% block content %}
-<title>To Do List</title>
 
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -8,12 +7,18 @@
 </head>
 
 <body>
+    {% if user_id == None %}
+    <div class="not-logged-alert">
+        <span class="not-logged-alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong>Note!</strong> No data will be saved if you leave/reload this page when not logged in.
+    </div>
+    {% endif %}
     <div class='todo-continer'>
         <div><span>I need to do... </span>{% if user_id != None %}
             <input class="todo-input" type="text" name="todoitem" id="todoitem" maxlength="100" autofocus placeholder="this task">
-            <input class="todo-input-pencil" type="image" src='/static/img/pencil.png' value="Add Item" onclick="addJq()"> {% else %}
+            <input class="todo-input-pencil" type="image" src='/static/img/pencil.png' value="Add Item" onclick="addJq()" title="Add task"> {% else %}
             <input class="todo-input" type="text" name="todoitem" id="todoitem" maxlength="100" autofocus placeholder="this task">
-            <input class="todo-input-pencil" type="image" src='/static/img/pencil.png' value="Add Item" onclick="add()"> {% endif %}
+            <input class="todo-input-pencil" type="image" src='/static/img/pencil.png' value="Add Item" onclick="add()" title="Add task"> {% endif %}
         </div>
         <div>
             <ul class="list-items ">

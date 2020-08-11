@@ -80,3 +80,34 @@ li.marked::before {
     width: 30px;
     height: 30px;
 }
+
+
+/* not logged alert */
+
+.not-logged-alert {
+    padding: 20px;
+    background-color: #f0c44d;
+    color: black;
+    width: 45%;
+    min-width: 600px;
+    border-radius: 30px;
+    position: relative;
+    margin: auto;
+    top: 10px;
+    text-align: center;
+}
+
+.not-logged-alert-closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.not-logged-alert-closebtn:hover {
+    color: black;
+}

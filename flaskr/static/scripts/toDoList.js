@@ -63,6 +63,15 @@ $(document).on('click', '.completeJq, .completeJq-item', function() {
         });
 });
 
+/* multi script */
+var input = document.getElementsByClassName("todo-input")[0];
+input.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+        document.getElementsByClassName("todo-input-pencil")[0].click();
+    }
+});
+
+
 // not logged in scripts
 function add() {
     $(".list-items").append(
