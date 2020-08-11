@@ -14,6 +14,7 @@ function addJq() {
                         <input class="deleteJq eraser" type="image" src="/static/img/eraser.png" title="Delete" value="Delete"> \
                         </div>\
                     </li>')
+                document.getElementById('todoitem').value = ""
             };
         });
 };
@@ -75,16 +76,13 @@ input.addEventListener("keyup", function(event) {
 // not logged in scripts
 function add() {
     $(".list-items").append(
-            '<li class="not-marked" id="task"><span class="complete todo-item">' + $("#todoitem").val() + '</span> \
+        '<li class="not-marked" id="task"><span class="complete todo-item">' + $("#todoitem").val() + '</span> \
                 <div class="list-item-button-continer"> \
                     <input type="image" src="/static/img/checkmark.png" value="Complete" class="complete complete-button" title="Toggle status"> \
                     <input class="delete eraser" type="image" src="/static/img/eraser.png" value="Delete" title="Delete"> \
                 </div>\
         </li>')
-        /*
-            <input type="image" src='/static/img/checkmark.png' value="Complete" title="Toggle status" class="completeJq complete-button">
-            <input class="deleteJq eraser" type="image" src='/static/img/eraser.png' title="Delete" value="Delete">
-        */
+    document.getElementById('todoitem').value = ""
 };
 
 $(document).on('click', '.delete', function() {
