@@ -89,5 +89,7 @@ window.onload = function() {
     }
     if (String(location).includes("delete")) {
         deleteUser()
+        document.getElementsByClassName('delete-alert')[0].style.display = 'none'
+        document.getElementsByClassName('delete-after-alert')[0].style.display = 'block'
     }
 }

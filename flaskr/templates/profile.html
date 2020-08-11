@@ -37,7 +37,6 @@
                 <button class="button" type="submit" value="Submit">New Random picture</button>
             </form>
         </div>
-        <br>
         <div class='psw_change' hidden>
             <form class="change-password" action="{{ url_for('profile.profile_psw_change') }} " method="POST" onsubmit="return validateForm()">
                 {% with change = get_flashed_messages(category_filter=["change"]) %} {% if change %}
@@ -63,17 +62,28 @@
             </div>
         </div>
         <div class="delete-confirmation" hidden>
-            <span>This can not be undone, make sure you saved all you need from the site.</span> {% with delete = get_flashed_messages(category_filter=["delete"]) %} {% if delete %}
-            <div class="alert-message delete-msg">
-                {%- for msg in delete %}
-                <span>{{ msg }}</span> {% endfor -%}
+            <div class="delete-alert">
+                <span class="close-delete-alert" onclick="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.style.display='block'">&times;</span>
+                <div class="delete-alert-msg">
+                    <span class="delete-alert-title"><strong>Alert!</strong></span>
+                    <br>
+                    <span class="delete-alert-text">This can not be undone, 
+                    make sure you saved all you need from the site.</span>
+                </div>
             </div>
-            {% endif %} {% endwith %}
-            <form class="delete-form" action="{{ url_for('profile.delete_account') }}" method="POST">
-                <label for="delete_psw">Password:</label>
-                <input type="password" id="delete_psw" name="delete_psw" autocomplete="off" required>
-                <input class="submit-button" type="submit" value="Delete">
-            </form>
+            <div class="delete-after-alert" style="display: none;">
+                <span>This can not be undone, make sure you saved all you need from the site.</span> {% with delete = get_flashed_messages(category_filter=["delete"]) %} {% if delete %}
+                <div class="alert-message delete-msg">
+                    {%- for msg in delete %}
+                    <span>{{ msg }}</span> {% endfor -%}
+                </div>
+                {% endif %} {% endwith %}
+                <form class="delete-form" action="{{ url_for('profile.delete_account') }}" method="POST">
+                    <label for="delete_psw">Password:</label>
+                    <input type="password" id="delete_psw" name="delete_psw" autocomplete="off" required>
+                    <input class="submit-button" type="submit" value="Delete">
+                </form>
+            </div>
         </div>
         <script type="text/javascript" src="static\scripts\profile.js"></script>
     </div>

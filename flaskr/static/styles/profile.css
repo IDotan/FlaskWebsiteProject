@@ -132,6 +132,14 @@ li.menu-delete.active>a>i {
     width: 70%;
 }
 
+.psw_change,
+.delete-confirmation {
+    padding-top: 10px;
+}
+
+
+/* delete tab */
+
 .alert-message.delete-msg {
     text-align: center;
     color: rgba(255, 0, 0, 0.822);
@@ -141,4 +149,36 @@ li.menu-delete.active>a>i {
     margin-bottom: 5px;
     margin-top: 5px;
     margin-left: 10px;
+}
+
+.delete-alert {
+    position: absolute;
+    width: max-content;
+    height: 30%;
+    background-color: rgb(191, 53, 53);
+    font-size: xx-large;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.delete-alert-text {
+    display: inline-block;
+    width: max-content;
+    white-space: pre-line;
+}
+
+.close-delete-alert {
+    float: left;
+    font-size: xxx-large;
+    cursor: pointer;
+}
+
+.delete-alert-msg {
+    padding-top: 10px;
+}
+
+.delete-form {
+    position: relative;
+    top: 10px;
 }
