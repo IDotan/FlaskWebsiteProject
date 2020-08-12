@@ -1,22 +1,24 @@
 function addJq() {
-    $.post(addLink, {
-            toDoItem: $("#todoitem").val()
-        },
-        function(data, status) {
-            if (data.done == "reload") {
-                location.reload();
-            }
-            if (data.done == "yep") {
-                $(".list-items").append(
-                    '<li class="not-marked" id="task" note_id="' + data.note_id + '"><span class="completeJq todo-item">' + data.note + '</span> \
+    if (document.getElementById('todoitem').value.trim() != "") {
+        $.post(addLink, {
+                toDoItem: $("#todoitem").val()
+            },
+            function(data, status) {
+                if (data.done == "reload") {
+                    location.reload();
+                }
+                if (data.done == "yep") {
+                    $(".list-items").append(
+                        '<li class="not-marked" id="task" note_id="' + data.note_id + '"><span class="completeJq todo-item">' + data.note + '</span> \
                         <div class="list-item-button-continer"> \
                         <input type="image" src="/static/img/checkmark.png" value="Complete" title="Toggle status" class="completeJq complete-button"> \
                         <input class="deleteJq eraser" type="image" src="/static/img/eraser.png" title="Delete" value="Delete"> \
                         </div>\
                     </li>')
-                document.getElementById('todoitem').value = ""
-            };
-        });
+                };
+            });
+    }
+    document.getElementById('todoitem').value = "";
 };
 
 $(document).on('click', '.deleteJq', function() {
@@ -29,8 +31,8 @@ $(document).on('click', '.deleteJq', function() {
                 location.reload();
             }
             if (data.done == "yep") {
-                var item = "[note_id='" + data.note_id + "']"
-                document.querySelector(item).remove()
+                var item = "[note_id='" + data.note_id + "']";
+                document.querySelector(item).remove();
             }
         });
 });
@@ -53,8 +55,8 @@ $(document).on('click', '.completeJq, .completeJq-item', function() {
                 location.reload();
             }
             if (data.done == "yep") {
-                var item = "[note_id='" + data.note_id + "']"
-                var temp_note = document.querySelector(item)
+                var item = "[note_id='" + data.note_id + "']";
+                var temp_note = document.querySelector(item);
                 if (temp_note.className == "not-marked") {
                     temp_note.className = "marked";
                 } else {
@@ -75,26 +77,28 @@ input.addEventListener("keyup", function(event) {
 
 // not logged in scripts
 function add() {
-    $(".list-items").append(
-        '<li class="not-marked" id="task"><span class="complete todo-item">' + $("#todoitem").val() + '</span> \
-                <div class="list-item-button-continer"> \
-                    <input type="image" src="/static/img/checkmark.png" value="Complete" class="complete complete-button" title="Toggle status"> \
-                    <input class="delete eraser" type="image" src="/static/img/eraser.png" value="Delete" title="Delete"> \
-                </div>\
-        </li>')
-    document.getElementById('todoitem').value = ""
-};
+    if (document.getElementById('todoitem').value.trim() != "") {
+        $(".list-items").append(
+            '<li class="not-marked" id="task"><span class="complete todo-item">' + $("#todoitem").val() + '</span> \
+                    <div class="list-item-button-continer"> \
+                        <input type="image" src="/static/img/checkmark.png" value="Complete" class="complete complete-button" title="Toggle status"> \
+                        <input class="delete eraser" type="image" src="/static/img/eraser.png" value="Delete" title="Delete"> \
+                    </div>\
+            </li>');
+    }
+    document.getElementById('todoitem').value = "";
+}
 
 $(document).on('click', '.delete', function() {
-    $(this).parent().parent().remove()
+    $(this).parent().parent().remove();
 });
 
 $(document).on('click', '.complete', function() {
     if (($(this).attr('class').includes("complete-button"))) {
         $(this).parent().parent().toggleClass('marked');
-        $(this).parent().parent().toggleClass('not-marked')
+        $(this).parent().parent().toggleClass('not-marked');
     } else {
         $(this).parent().toggleClass('marked');
-        $(this).parent().toggleClass('not-marked')
+        $(this).parent().toggleClass('not-marked');
     }
-});
+})

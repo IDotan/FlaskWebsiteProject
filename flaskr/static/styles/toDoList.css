@@ -3,6 +3,8 @@
     padding-top: 20px;
     font-family: 'Charm';
     font-size: xx-large;
+    width: max-content;
+    margin: auto;
 }
 
 .todo-input {
@@ -10,7 +12,8 @@
     border-color: transparent;
     font-family: 'Charm';
     font-size: xx-large;
-    width: 25%;
+    width: 35%;
+    background: transparent;
 }
 
 .todo-input-pencil {
