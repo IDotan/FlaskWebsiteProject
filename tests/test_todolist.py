@@ -10,7 +10,7 @@ def test_not_logged(client):
 
 
 def test_logged(client):
-    client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
+    client.post('/login', data=dict(username="admin", psw="Hello*1234"))
     rv = client.get('/toDoList')
     assert b'I need to do...' in rv.data
 
@@ -22,7 +22,7 @@ def test_not_logged_add(client):
 
 
 def test_logged_add_empty(client):
-    client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
+    client.post('/login', data=dict(username="admin", psw="Hello*1234"))
     rv = client.post('/addJq', data=dict(toDoItem=" "))
     assert b'nope' in rv.data
 
@@ -30,14 +30,14 @@ def test_logged_add_empty(client):
 def test_logged_add_too_long(client):
     long_str = 'test test test test test test test test test test test ' \
                'test test test test test test test test test test'
-    client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
+    client.post('/login', data=dict(username="admin", psw="Hello*1234"))
     rv = client.post('/addJq', data=dict(toDoItem=long_str))
     assert b'reload' in rv.data
 
 
 def test_logged_add_100(client):
     long_str = 'test test test test test test test test test test test test test test test test test test test tests'
-    client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
+    client.post('/login', data=dict(username="admin", psw="Hello*1234"))
     rv = client.post('/addJq', data=dict(toDoItem=long_str))
     global note_1
     temp_sting = str(rv.data)
@@ -48,7 +48,7 @@ def test_logged_add_100(client):
 
 
 def test_logged_add_hey(client):
-    client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
+    client.post('/login', data=dict(username="admin", psw="Hello*1234"))
     rv = client.post('/addJq', data=dict(toDoItem='hey'))
     global note_2
     temp_sting = str(rv.data)
@@ -58,7 +58,7 @@ def test_logged_add_hey(client):
 
 
 def test_logged_added_showing(client):
-    client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
+    client.post('/login', data=dict(username="admin", psw="Hello*1234"))
     rv = client.get('/toDoList')
     assert b'hey' in rv.data
     assert b'test test test test test test test test test test test ' \
@@ -72,13 +72,13 @@ def test_not_logged_complete(client):
 
 
 def test_wrong_user_complete(client):
-    client.post('/login', data=dict(username="admin", psw="Hello*1234"))
+    client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
     rv = client.post('/completeJQ', data=dict(note_id=note_2, note_text='hey'))
     assert b'nope' in rv.data
 
 
 def test_logged_complete(client):
-    client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
+    client.post('/login', data=dict(username="admin", psw="Hello*1234"))
     rv = client.get('/toDoList')
     assert b'class=\'not-marked\'' in rv.data
     rv = client.post('/completeJQ', data=dict(note_id=note_2, note_text="hey"))
@@ -88,7 +88,7 @@ def test_logged_complete(client):
 
 
 def test_logged_remove_mark(client):
-    client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
+    client.post('/login', data=dict(username="admin", psw="Hello*1234"))
     rv = client.get('/toDoList')
     assert b'class=\'marked\'' in rv.data
     rv = client.post('/completeJQ', data=dict(note_id=note_2, note_text='hey'))
@@ -104,13 +104,13 @@ def test_not_logged_delete(client):
 
 
 def test_wrong_user_delete(client):
-    client.post('/login', data=dict(username="admin", psw="Hello*1234"))
+    client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
     rv = client.post('/deleteJQ', data=dict(note_id=note_2, note_text='hey'))
     assert b'nope' in rv.data
 
 
 def test_logged_delete(client):
-    client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
+    client.post('/login', data=dict(username="admin", psw="Hello*1234"))
     long_str = 'test test test test test test test test test test test test test test test test test test test tests'
     rv = client.post('/deleteJQ', data=dict(note_id=note_1, note_text=long_str))
     assert b'yep' in rv.data
@@ -120,7 +120,7 @@ def test_logged_delete(client):
 
 
 def test_logged_delete_hey_wrong_text(client):
-    client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
+    client.post('/login', data=dict(username="admin", psw="Hello*1234"))
     rv = client.post('/deleteJQ', data=dict(note_id=note_2, note_text="bye"))
     assert b'nope' in rv.data
     rv = client.get('/toDoList')
@@ -128,7 +128,7 @@ def test_logged_delete_hey_wrong_text(client):
 
 
 def test_logged_delete_hey(client):
-    client.post('/login', data=dict(username="itai2", psw="Hello*1234"))
+    client.post('/login', data=dict(username="admin", psw="Hello*1234"))
     rv = client.post('/deleteJQ', data=dict(note_id=note_2, note_text="hey"))
     assert b'yep' in rv.data
     rv = client.get('/toDoList')

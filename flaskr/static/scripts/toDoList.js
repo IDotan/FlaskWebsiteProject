@@ -19,6 +19,7 @@ function addJq() {
             });
     }
     document.getElementById('todoitem').value = "";
+    document.getElementById('todoitem').focus();
 };
 
 $(document).on('click', '.deleteJq', function() {
@@ -87,6 +88,7 @@ function add() {
             </li>');
     }
     document.getElementById('todoitem').value = "";
+    document.getElementById('todoitem').focus();
 }
 
 $(document).on('click', '.delete', function() {
