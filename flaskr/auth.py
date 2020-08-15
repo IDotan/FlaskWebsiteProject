@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session, g
 from functools import wraps
 from . import users_db
-from flaskr.python_scripts.register_validator import check_form_data
+from flaskr.python_scripts.register_validator import check_form_data, valid_user, valid_email
 from .models import User
 from passlib.hash import sha256_crypt
 from flaskr.python_scripts.random_pic_picker import pick_my_pic
@@ -92,6 +92,28 @@ def signup_post():
     g.user = new_user_session
     # :todo new friend css and java script to go to home
     return redirect(url_for('main.new_friend'))
+
+
+@auth.route('/userIDAvailable', methods=['POST'])
+def user_id_available():
+    id_to_check = request.form['usernameCheck']
+    if len(id_to_check) < 5:
+        return {'valid': 'no'}
+    if not valid_user(id_to_check):
+        return {'valid': 'no'}
+    if User.query.filter_by(user_name=id_to_check).first():
+        return {'valid': 'no'}
+    return {'valid': 'yes'}
+
+
+@auth.route('/emailAvailable', methods=['POST'])
+def email_available():
+    mail_to_check = request.form['emailCheck']
+    if not valid_email(mail_to_check):
+        return {'valid': 'no'}
+    if User.query.filter_by(email=mail_to_check).first():
+        return {'valid': 'no'}
+    return {'valid': 'yes'}
 
 
 @auth.route('/logout')

@@ -1,23 +1,32 @@
 function validateForm() {
-    if ( (document.getElementById('usernameError').hidden == false) || (document.getElementById('pswError').hidden == false) || (document.getElementById('emailError').hidden == false) ){            
+    if ((document.getElementById('usernameError').hidden == false) || (document.getElementById('pswError').hidden == false) || (document.getElementById('emailError').hidden == false)) {
         return false;
     }
 }
 
 const user_input = document.getElementById('Username');
 const user_error = document.getElementById('usernameError');
-user_input.addEventListener('focusout', function (event) {
+user_input.addEventListener('keyup', function(event) {
     var userCheck = isOkUser(user_input.value);
     if (userCheck.result == false) {
         //show the error
         user_error.innerText = userCheck.error;
         user_error.hidden = false;
-    }
-    else {
-        user_error.innerText = "";
-        user_error.hidden = true;
+    } else {
+        $.post(userIDAvailableLink, {
+            usernameCheck: user_input.value
+        }, function(data) {
+            if (data.valid == 'no') {
+                user_error.innerText = "Username already in use";
+                user_error.hidden = false;
+            } else {
+                user_error.innerText = "";
+                user_error.hidden = true;
+            }
+        })
     }
 });
+
 function isOkUser(u) {
     var anUpperCase = /[A-Z]/;
     var aLowerCase = /[a-z]/;
@@ -45,18 +54,18 @@ function isOkUser(u) {
 
 const psw_input = document.getElementById('psw');
 const psw_error = document.getElementById('pswError');
-psw_input.addEventListener('focusout', function (event) {
+psw_input.addEventListener('focusout', function(event) {
     var userCheck = isOkPass(psw_input.value);
     if (userCheck.result == false) {
         //show the error
         psw_error.innerText = userCheck.error;
         psw_error.hidden = false;
-    }
-    else {
+    } else {
         psw_error.innerText = "";
         psw_error.hidden = true;
     }
 });
+
 function isOkPass(p) {
     var anUpperCase = /[A-Z]/;
     var aLowerCase = /[a-z]/;
@@ -95,16 +104,24 @@ function isOkPass(p) {
 }
 const mail_input = document.getElementById('email');
 const mail_error = document.getElementById('emailError');
-mail_input.addEventListener('focusout', function (event) {
+mail_input.addEventListener('focusout', function(event) {
     var mailCheck = isOkMail(mail_input.value);
     if (mailCheck == false) {
         //show the error
         mail_error.innerText = "Not a valid E-mail";
         mail_error.hidden = false;
-    }
-    else {
-        mail_error.innerText = "";
-        mail_error.hidden = true;
+    } else {
+        $.post(emailAvailableLink, {
+            emailCheck: mail_input.value
+        }, function(data) {
+            if (data.valid = "no") {
+                mail_error.innerText = "E-mail already in use";
+                mail_error.hidden = false;
+            } else {
+                mail_error.innerText = "";
+                mail_error.hidden = true;
+            }
+        })
     }
 });
 
