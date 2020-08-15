@@ -114,7 +114,7 @@ mail_input.addEventListener('focusout', function(event) {
         $.post(emailAvailableLink, {
             emailCheck: mail_input.value
         }, function(data) {
-            if (data.valid = "no") {
+            if (data.valid == "no") {
                 mail_error.innerText = "E-mail already in use";
                 mail_error.hidden = false;
             } else {
