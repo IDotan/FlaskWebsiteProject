@@ -145,6 +145,56 @@ def test_register_page_post_invalid_username3(client):
     assert b'one or more of your info is invalid' in rv.data
 
 
+def test_register_page_user_id_available_to_short(client):
+    rv = client.post('/userIDAvailable', data=dict(usernameCheck='itai'))
+    assert b'"valid":"no"' in rv.data
+
+
+def test_register_page_user_id_available_not_valid_char(client):
+    rv = client.post('/userIDAvailable', data=dict(usernameCheck='itai54*'))
+    assert b'"valid":"no"' in rv.data
+
+
+def test_register_page_user_id_available_already_in_use(client):
+    rv = client.post('/userIDAvailable', data=dict(usernameCheck='itai2'))
+    assert b'"valid":"no"' in rv.data
+
+
+def test_register_page_user_id_available_valid(client):
+    rv = client.post('/userIDAvailable', data=dict(usernameCheck='itai23'))
+    assert b'"valid":"yes"' in rv.data
+
+
+def test_register_page_email_available_not_mail(client):
+    rv = client.post('/emailAvailable', data=dict(emailCheck='notAMail'))
+    assert b'"valid":"no"' in rv.data
+
+
+def test_register_page_email_available_not_mail2(client):
+    rv = client.post('/emailAvailable', data=dict(emailCheck='notAMail@'))
+    assert b'"valid":"no"' in rv.data
+
+
+def test_register_page_email_available_not_mail3(client):
+    rv = client.post('/emailAvailable', data=dict(emailCheck='notAMail@the'))
+    assert b'"valid":"no"' in rv.data
+
+
+def test_register_page_email_available_not_mail4(client):
+    rv = client.post('/emailAvailable', data=dict(emailCheck='notAMail@the.'))
+    assert b'"valid":"no"' in rv.data
+
+
+def test_register_page_email_available_already_taken(client):
+    rv = client.post('/emailAvailable', data=dict(emailCheck='i@i.com'))
+    assert b'"valid":"no"' in rv.data
+
+
+def test_register_page_email_available_valid(client):
+    rv = client.post('/emailAvailable', data=dict(emailCheck='i2@i.com'))
+    assert b'"valid":"yes"' in rv.data
+
+
 # valid register
 def test_register_page_post_valid(client):
     rv = client.post('/register', data=dict(username="itai3", psw="Hello*1234", email="test@test.com", fname='name',
