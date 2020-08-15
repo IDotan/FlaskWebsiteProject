@@ -1,5 +1,5 @@
 """
-| basic form input validation
+| basic form input validation to site registration
 """
 import re
 

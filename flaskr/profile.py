@@ -1,3 +1,6 @@
+"""
+| model for the profile site page functions
+"""
 from flask import Blueprint, render_template, request, g, flash, session, redirect, url_for, Flask
 from .auth import check_session, login_required
 from passlib.hash import sha256_crypt
@@ -44,6 +47,10 @@ def delete_old_user_pic(user):
 @check_session
 @login_required
 def profile_page():
+    """
+    | render the profile page
+    :return: the rendered template
+    """
     pic = g.user.user_pic
     name = g.user.first_name.capitalize() + ' ' + g.user.last_name.capitalize()
     return render_template('profile.html', profile_pic=pic, name=name)
@@ -52,6 +59,12 @@ def profile_page():
 @profile.route('/psw_change', methods=['POST'])
 @check_session
 def profile_psw_change():
+    """
+    | change the user password
+    | check the given 'current' password
+    | make sure the new password is valid and match the confirm password
+    :return: flash msg to be shown and redirect to /profile
+    """
     old_psw = request.form['old_psw']
     new_psw = request.form['new_psw']
     confirm_psw = request.form['confirm_psw']
@@ -77,6 +90,11 @@ def profile_psw_change():
 @profile.route('/delete_account', methods=['POST'])
 @check_session
 def delete_account():
+    """
+    | delete the user and all its data from the database
+    | check the confirm password is a match
+    :return: 'bye' page when done or msg to flash and redirect to /profile
+    """
     user_id = g.user.id
     psw = request.form['delete_psw']
     if not sha256_crypt.verify(psw, g.user.password):
@@ -100,6 +118,11 @@ def delete_account():
 @profile.route('/upload_pic', methods=['POST'])
 @check_session
 def upload_file():
+    """
+    | change user profile pic to the upload pic.
+    | check if the file is valid, rename it to 'user_pic_{user_id}{time()} so it will be unique every upload
+    :return: redirect to /profile when worked or msg to flash and redirect to /profile when there is an error
+    """
     if 'file' not in request.files:
         flash('No file part', 'upload')
         return redirect(url_for("profile.profile_page"))
@@ -126,6 +149,11 @@ def upload_file():
 @profile.route('/random_pic', methods=['POST'])
 @check_session
 def pick_random():
+    """
+    | give the user a new random pic.
+    | check and delete if found uploaded user pic
+    :return: redirect to /profile
+    """
     user = User.query.filter_by(id=g.user.id).first()
     delete_old_user_pic(user)
     old_pic = user.user_pic

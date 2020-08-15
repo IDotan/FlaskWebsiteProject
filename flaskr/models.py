@@ -1,9 +1,15 @@
+"""
+| set up the sql data base
+"""
 from . import users_db, toDoList_db
 
 __author__ = "Itai Dotan"
 
 
 class User(users_db.Model):
+    """
+    | set the column for users_db
+    """
     id = users_db.Column(users_db.Integer, primary_key=True)
     email = users_db.Column(users_db.String(100), unique=True)
     user_name = users_db.Column(users_db.String(100), unique=True)
@@ -18,6 +24,9 @@ class User(users_db.Model):
 
 
 class UsersToDo(toDoList_db.Model):
+    """
+    | set the column for toDoList_db
+    """
     __bind_key__ = 'UsersToDo'
     id = toDoList_db.Column(toDoList_db.Integer, primary_key=True)
     user_id = toDoList_db.Column(toDoList_db.Integer)

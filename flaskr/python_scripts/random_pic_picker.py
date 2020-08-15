@@ -1,5 +1,5 @@
 """
-| pick a random pic from the img/randomProfile folder
+| pick a random pic from the '/static/img/randomProfile' folder
 """
 import os
 from random import randrange

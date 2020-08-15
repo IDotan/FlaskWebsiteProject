@@ -1,3 +1,6 @@
+"""
+| model for the site user login and register functions
+"""
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session, g
 from functools import wraps
 from . import users_db
@@ -13,6 +16,10 @@ auth = Blueprint('auth', __name__)
 
 
 def check_session(f):
+    """
+    | check if there is a logged in user
+    :return: g.user = user data when logged or none when not logged
+    """
     @wraps(f)
     def decorated_function(*args, **kwargs):
         g.user = None
@@ -23,6 +30,11 @@ def check_session(f):
 
 
 def login_required(f):
+    """
+    | make sure the user is logged to use the page
+    | send to log in when not logged in
+    :return: the requested page when logged, redirect to login page when not logged
+    """
     @wraps(f)
     def decorated_function(*args, **kwargs):
         try:
@@ -35,11 +47,19 @@ def login_required(f):
 
 @auth.route('/login')
 def login():
+    """
+    | render login.html
+    :return: render template login.html
+    """
     return render_template('login.html')
 
 
 @auth.route('/login', methods=['POST'])
 def login_post():
+    """
+    | check login request
+    :return: redirect to 'main.index' when login was complete or render the page with error msg
+    """
     user_name = request.form['username']
     psw = request.form['psw']
     remember = True if request.form.get('remember') else False
@@ -57,11 +77,21 @@ def login_post():
 
 @auth.route('/register')
 def signup():
+    """
+    | render register.html
+    :return: render template 'register.html'
+    """
     return render_template('register.html')
 
 
 @auth.route('/register', methods=['POST'])
 def signup_post():
+    """
+    | check the form data and create new user in the database when valid
+    | make sure all the data is valid and make sure the user ID and the E-mail is unique
+    :return: redirect to 'main.new_friend' when registration was complete,
+            render the page with flash msg when there is an error
+    """
     user_name = request.form['username']
     psw = request.form['psw']
     mail = request.form['email']
@@ -96,6 +126,10 @@ def signup_post():
 
 @auth.route('/userIDAvailable', methods=['POST'])
 def user_id_available():
+    """
+    | check if the user id is available before the form POST of the register page
+    :return: dict with data response of the result
+    """
     id_to_check = request.form['usernameCheck']
     if len(id_to_check) < 5:
         return {'valid': 'no'}
@@ -108,6 +142,10 @@ def user_id_available():
 
 @auth.route('/emailAvailable', methods=['POST'])
 def email_available():
+    """
+    | check if the E-mail is available before the form POST of the register page
+    :return: dict with data response of the result
+    """
     mail_to_check = request.form['emailCheck']
     if not valid_email(mail_to_check):
         return {'valid': 'no'}
@@ -118,6 +156,10 @@ def email_available():
 
 @auth.route('/logout')
 def logout():
+    """
+    | log out the user from the site
+    :return: redirect to '/' (home page)
+    """
     session.pop("id", None)
     g.user = None
     return redirect("/")

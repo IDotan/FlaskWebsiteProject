@@ -1,3 +1,6 @@
+"""
+| model for the toDoList site page functions
+"""
 from flask import Blueprint, render_template, request, g, session, jsonify
 from .models import UsersToDo
 from . import toDoList_db
@@ -11,6 +14,11 @@ toDoList = Blueprint('toDoList', __name__)
 @toDoList.route('/toDoList')
 @check_session
 def to_do_list():
+    """
+    | render the toDoList page.
+    | check if the user is logged in and send the needed data to render in the page
+    :return: the rendered template
+    """
     try:
         user_id = session["id"]
         list_items = UsersToDo.query.filter_by(user_id=user_id).all()
@@ -25,6 +33,11 @@ def to_do_list():
 @toDoList.route('/addJq', methods=['POST'])
 @check_session
 def add_jq():
+    """
+    | add the note to the database.
+    | make sure the correct user is logged and the note is valid.
+    :returns: dict with data response of the result
+    """
     if g.user is None:
         return {'done': "reload"}
     note = request.form['toDoItem'].strip()
@@ -42,6 +55,11 @@ def add_jq():
 @toDoList.route('/deleteJQ', methods=['POST'])
 @check_session
 def delete_jp():
+    """
+    | delete the note from the database.
+    | make sure the user is logged and the note sent is the same as in the database
+    :return: dict with data response of the result
+    """
     if g.user is None:
         return {'done': "reload"}
     user_id_session = g.user.id
@@ -59,6 +77,11 @@ def delete_jp():
 @toDoList.route('/completeJQ', methods=['POST'])
 @check_session
 def complete_jq():
+    """
+    | mark a note as completed in the database
+    | make sure the user is logged in and the note sent is the same as in the database
+    :return: dict with data response of the result
+    """
     if g.user is None:
         return {'done': "reload"}
     user_id_session = g.user.id
