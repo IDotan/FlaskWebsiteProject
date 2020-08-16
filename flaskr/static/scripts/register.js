@@ -6,7 +6,7 @@ function validateForm() {
 
 const user_input = document.getElementById('Username');
 const user_error = document.getElementById('usernameError');
-user_input.addEventListener('keyup', function(event) {
+user_input.addEventListener('focusout', function(event) {
     var userCheck = isOkUser(user_input.value);
     if (userCheck.result == false) {
         //show the error
@@ -46,7 +46,7 @@ function isOkUser(u) {
     }
     if (invaliedChar != 0) {
         obj.result = false;
-        obj.error = "Can only use english char or numbers";
+        obj.error = "Can only use english characters and numbers";
         return obj;
     }
     return obj;
@@ -54,7 +54,7 @@ function isOkUser(u) {
 
 const psw_input = document.getElementById('psw');
 const psw_error = document.getElementById('pswError');
-psw_input.addEventListener('focusout', function(event) {
+psw_input.addEventListener('keyup', function(event) {
     var userCheck = isOkPass(psw_input.value);
     if (userCheck.result == false) {
         //show the error

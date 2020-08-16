@@ -128,6 +128,7 @@ def signup_post():
 def user_id_available():
     """
     | check if the user id is available before the form POST of the register page
+    | the checks before the SQL query is to prevent unneeded scan of the database
     :return: dict with data response of the result
     """
     id_to_check = request.form['usernameCheck']
@@ -144,6 +145,7 @@ def user_id_available():
 def email_available():
     """
     | check if the E-mail is available before the form POST of the register page
+    | the check before the SQL query is to prevent unneeded scan of the database
     :return: dict with data response of the result
     """
     mail_to_check = request.form['emailCheck']

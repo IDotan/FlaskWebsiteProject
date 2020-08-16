@@ -14,20 +14,26 @@
         {% endfor %} {% endwith %}
         <div class="input-continer">
             <label for="Username">Username:</label>
-            <input type="text" id="Username" name="username" required> {% if userDataError != "" %}
-            <span id="usernameError" class="error">{{ userDataError }}</span> {% else %}
-            <span id="usernameError" class="error" hidden></span> {% endif %}
+            <div class="input-tooltip-box">
+                <input type="text" id="Username" name="username" required> {% if userDataError %}
+                <span id="usernameError" class="error">{{ userDataError }}</span> {% else %}
+                <span id="usernameError" class="error" hidden></span> {% endif %}
+            </div>
         </div>
         <div class="input-continer">
             <label for="password">Password:</label>
-            <input type="password" id="psw" name="psw" required>
-            <span id="pswError" class="error" hidden></span>
+            <div class="input-tooltip-box">
+                <input type="password" id="psw" name="psw" required>
+                <span id="pswError" class="error" hidden></span>
+            </div>
         </div>
         <div class="input-continer">
             <label for="email">E-mail:</label>
-            <input type="email" id="email" name="email" required> {% if emailDataError %}
-            <span id="emailError" class="error"> {{emailDataError}} </span> {% else %}
-            <span id="emailError" class="error" hidden></span> {% endif %}
+            <div class="input-tooltip-box">
+                <input type="email" id="email" name="email" required> {% if emailDataError %}
+                <span id="emailError" class="error"> {{emailDataError}} </span> {% else %}
+                <span id="emailError" class="error" hidden></span> {% endif %}
+            </div>
         </div>
         <div class="input-continer">
             <label for="fname">First name:</label>

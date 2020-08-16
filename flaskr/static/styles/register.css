@@ -1,45 +1,79 @@
-body{
+body {
     background-image: url('/static/img/13.png');
-    background-repeat: no-repeat; 
-    background-size: cover; 
-    background-attachment: fixed; 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
     width: 100%;
 }
-.warper-form{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 10%;
+
+h3 {
+    width: max-content;
+    margin: auto;
+    padding: 15px;
+    font-size: x-large;
+}
+
+.warper-form {
+    position: relative;
+    margin: auto;
     background-color: rgba(29, 48, 153, 0.267);
     height: 312px;
-    width: 308px;
-    padding: 37px;
+    width: 250px;
+    padding: 37px 57px;
 }
-.form-continar{
+
+.form-continar {
     display: flex;
     flex-direction: column;
     height: 300px;
     justify-content: space-evenly;
 }
 
-.input-continer{
+.input-continer {
     display: flex;
-    justify-content: space-between;    
+    justify-content: space-between;
 }
-.input-continer input{
+
+.input-continer input {
     margin-left: 20px;
 }
-.submit-button{
+
+.submit-button {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     bottom: 10%;
+    width: 25%;
 }
-.error{
+
+.input-tooltip-box {
+    position: relative;
+}
+
+.exists-error {
     position: absolute;
-    white-space: nowrap;
+    top: 20px;
+    text-align: center;
+    font-style: italic;
+}
+
+.exists-error {
+    position: absolute;
+    text-align: center;
     color: red;
-    left: 200px;
-    margin-top: 25px;
+    font-style: italic;
+}
+
+.error {
+    position: absolute;
+    color: #ce0202;
     font-size: 13px;
+    z-index: 1;
+    width: max-content;
+    max-width: 215px;
+    left: 105%;
+    padding: 5px;
+    text-align: center;
+    font-style: italic;
+    background-color: #f0eacf;
 }
