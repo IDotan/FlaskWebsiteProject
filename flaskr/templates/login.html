@@ -1,28 +1,35 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
 
-{% block content %}
-<div class="column is-4 is-offset-4">
+<head>
+    <link rel='stylesheet' type='text/css' media='screen' href="static/styles/login.css">
+</head>
+
+<div class="login">
     <h3 class="title">Login</h3>
+    {% if error %}
+    <div class="error-login">
+        <img src="/static/img/error.png"><span>{{error}}</span>
+    </div>
+    {% endif %}
     <div class="box">
         <form method="POST" action="/login">
             <div class="field">
-                    <input class="" type="text" name="username" placeholder="Your User name" autofocus="">
+                <img class="icon user-icon" src="/static/img/user-icon.png"><input class="input-field" type="text" name="username" placeholder="User name" autofocus>
             </div>
 
             <div class="field">
-                    <input class="" type="password" name="psw" placeholder="Your Password">
+                <img class="icon key-icon" src="/static/img/key-icon.png"><input class="input-field" type="password" name="psw" placeholder="Password">
             </div>
 
-            <div class="field">
+            <div class="field-remember">
                 <label class="checkbox">
                     <input type="checkbox" name="remember">
                     Remember me
                 </label>
             </div>
-            {% if error %}
-                <p>{{error}}</p>
-            {% endif %}
-            <button class="">Login</button>
+            <div class="login-button-container">
+                <button class="login-button">Login</button>
+            </div>
         </form>
     </div>
 </div>

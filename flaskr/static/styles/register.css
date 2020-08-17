@@ -9,7 +9,7 @@ body {
 h3 {
     width: max-content;
     margin: auto;
-    padding: 15px;
+    padding: 20px;
     font-size: x-large;
 }
 
@@ -20,6 +20,8 @@ h3 {
     height: 312px;
     width: 250px;
     padding: 37px 57px;
+    border-radius: 30px;
+    border: dashed 2.5px aliceblue;
 }
 
 .form-continar {
@@ -27,6 +29,7 @@ h3 {
     flex-direction: column;
     height: 300px;
     justify-content: space-evenly;
+    font-weight: bold;
 }
 
 .input-continer {
@@ -36,14 +39,26 @@ h3 {
 
 .input-continer input {
     margin-left: 20px;
+    border: transparent;
+    border-radius: 5px;
+    height: 20px;
+}
+
+.input-continer #gender {
+    border: transparent;
+    width: 30%;
 }
 
 .submit-button {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 10%;
-    width: 25%;
+    bottom: 5%;
+    width: 30%;
+    border: transparent;
+    border-radius: 10px;
+    height: 25px;
+    font-weight: bold;
 }
 
 .input-tooltip-box {
@@ -76,4 +91,6 @@ h3 {
     text-align: center;
     font-style: italic;
     background-color: #f0eacf;
+    top: -3px;
+    border-radius: 5px;
 }
