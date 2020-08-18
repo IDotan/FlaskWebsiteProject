@@ -30,11 +30,17 @@
     list-style-type: none;
     margin: 0;
     width: max-content;
+    max-width: 700px;
 }
 
 .marked,
 .not-marked {
     position: relative;
+    display: flex;
+    flex-flow: row;
+    max-width: 700px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px dashed;
 }
 
 .marked>.todo-item:hover {
@@ -57,17 +63,17 @@ li.marked::before {
     border-color: rgb(0, 0, 0);
     border-style: solid;
     border-width: 0 3px 3px 0;
-    left: -20px;
-    top: 15px;
+    left: -25px;
     transform: rotate(45deg);
     height: 15px;
     width: 7px;
+    align-self: center;
 }
 
 .list-item-button-continer {
-    position: relative;
-    float: right;
-    left: 25px;
+    display: flex;
+    margin-left: auto;
+    align-self: center;
 }
 
 .eraser {
