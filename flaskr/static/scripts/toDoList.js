@@ -11,8 +11,8 @@ function addJq() {
                     $(".list-items").append(
                         '<li class="not-marked" id="task" note_id="' + data.note_id + '"><span class="completeJq todo-item">' + data.note + '</span> \
                         <div class="list-item-button-continer"> \
-                        <input type="image" src="/static/img/checkmark.png" value="Complete" title="Toggle status" class="completeJq complete-button"> \
-                        <input class="deleteJq eraser" type="image" src="/static/img/eraser.png" title="Delete" value="Delete"> \
+                        <input type="image" src="/static/img/checkmark.png" value="Complete" title="Toggle status" class="completeJq complete-button" onmouseover="completeHover(this)" onmouseout="buttonHoverOut(this)"> \
+                        <input class="deleteJq eraser" type="image" src="/static/img/eraser.png" title="Delete" value="Delete" onmouseover="eraseHover(this)" onmouseout="buttonHoverOut(this)"> \
                         </div>\
                     </li>')
                 };
@@ -75,6 +75,24 @@ input.addEventListener("keyup", function(event) {
     }
 });
 
+function eraseHover(e) {
+    e.parentElement.previousElementSibling.style.textDecoration = 'line-through wavy 2.5px'
+    e.parentElement.previousElementSibling.style.opacity = "50%"
+}
+
+function completeHover(e) {
+    e.parentElement.previousElementSibling.style.textDecoration = 'line-through'
+    if (e.parentElement.parentElement.getAttribute('class').includes('not-marked')) {
+        e.parentElement.previousElementSibling.style.textDecorationColor = 'rgba(0, 0, 0, 0.65)';
+    } else {
+        e.parentElement.previousElementSibling.style.textDecorationColor = 'rgba(0, 0, 0, 0.35)';
+    }
+}
+
+function buttonHoverOut(e) {
+    e.parentElement.previousElementSibling.style.textDecoration = ""
+    e.parentElement.previousElementSibling.style.opacity = ""
+}
 
 // not logged in scripts
 function add() {
@@ -82,8 +100,8 @@ function add() {
         $(".list-items").append(
             '<li class="not-marked" id="task"><span class="complete todo-item">' + $("#todoitem").val() + '</span> \
                     <div class="list-item-button-continer"> \
-                        <input type="image" src="/static/img/checkmark.png" value="Complete" class="complete complete-button" title="Toggle status"> \
-                        <input class="delete eraser" type="image" src="/static/img/eraser.png" value="Delete" title="Delete"> \
+                        <input type="image" src="/static/img/checkmark.png" value="Complete" class="complete complete-button" title="Toggle status" onmouseover="completeHover(this)" onmouseout="buttonHoverOut(this)"> \
+                        <input class="delete eraser" type="image" src="/static/img/eraser.png" value="Delete" title="Delete" onmouseover="eraseHover(this)" onmouseout="buttonHoverOut(this)"> \
                     </div>\
             </li>');
     }
