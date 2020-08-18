@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    Welcome {{name}}
-    <br>
-    <img src={{profile_pic}} alt="profile picture" width="150" height="150" style="border-radius: 50%;">
-</head>
-<body>
 
+<head>
+    <link rel='stylesheet' type='text/css' media='screen' href="static/styles/new_friend.css">
+</head>
+
+<body>
+    <div class="card">
+        <span>Welcome {{name}}</span>
+        <img src={{profile_pic}} alt="profile picture">
+    </div>
+    <div class="msg">
+        <span>You will be taken to the home page in a few moments, or click <a href="{{ url_for('main.index') }}">here</a> if you're in a hurry.</span>
+    </div>
 </body>
+<script>
+    document.onload = setTimeout(function() {
+        window.location.href = "{{ url_for('main.index') }}";
+    }, 10000)
+</script>
+
 </html>
