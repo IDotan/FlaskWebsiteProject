@@ -36,11 +36,8 @@ nav.navigation-bar li.active {
 }
 
 @media screen and (max-width: 600px) {
-    nav.navigation-bar li.right,
+    nav.navigation-bar li.user-nav,
     nav.navigation-bar li {
-        float: none;
-    }
-    nav.navigation-bar li.user-nav {
         float: none;
     }
 }

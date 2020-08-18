@@ -30,3 +30,9 @@ def new_friend():
     pic = g.user.user_pic
     name = g.user.first_name
     return render_template('new_friend.html', profile_pic=pic, name=name)
+
+
+@main.route('/about')
+@check_session
+def about():
+    return render_template('about.html')

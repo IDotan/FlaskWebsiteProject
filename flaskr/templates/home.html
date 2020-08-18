@@ -1,27 +1,21 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <html>
-<style>
-  .center {
-    position: relative;
-    left: 0;
-    top: 50%;
-    width: 100%;
-    text-align: center;
-    font-size: 18px;
-  }
-</style>
-<body style="background-image: url('https://previews.123rf.com/images/vska/vska1607/vska160700059/60629281-abstract-digital-web-site-header-banner-technology-background.jpg');
-background-repeat: no-repeat; background-size: cover; background-attachment: fixed; ">
-  <div style="height: 280px;">
-    <div class="center">
-      {% if name != "" %}
-      <a style="font-size:5vw;">Good to see you again, {{name}}</a><br>
-      {% else %}
-      <a style="font-size:5vw;">Welcome to this site</a><br>
-      {% endif %}
+
+<head>
+    <link rel='stylesheet' type='text/css' media='screen' href="static/styles/home.css">
+</head>
+
+<div>
+    <div class="header-container">
+        {% if name != "" %}
+        <span>Good to see you again, {{name}}</span> {% else %}
+        <span>Welcome to this site</span> {% endif %}
     </div>
-  </div>
-</body>
+    <div class="text-body">
+        <p>Welcome to the front end of my Python Flask project, this is a project to show some of what I know and can do. Anything past the basic Flask renders, and any other languages (JavaScript, HTML, etc.) where self taught researched and tested.</p>
+        <p>More info can be found in the ‘<a href="{{ url_for( 'main.about') }}">About</a>’ tab, ‘<a href="{{ url_for( 'main.about') }}#site">Site about</a>’ sub-tab for the front-end info and things I want to highlight, ‘<a href="{{ url_for( 'main.about') }}#dev">About me</a>’
+            sub-tab for more info on me aka the developer.</p>
+        <span>For now, the site is not fully mobile/small scale friendly.</span>
+    </div>
+</div>
 {% endblock %}

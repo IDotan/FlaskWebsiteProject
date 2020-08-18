@@ -21,6 +21,11 @@
                     ToDoList
                 </a>
             </li>
+            <li class="info">
+                <a href="{{ url_for('main.about') }}">
+                    About
+                </a>
+            </li>
             {% if name %}
             <li class="nav-profile">
                 <a href="{{ url_for('profile.profile_page') }}">
