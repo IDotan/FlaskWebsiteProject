@@ -2,13 +2,22 @@
 <html>
 
 <head>
-    <link rel='stylesheet' type='text/css' media='screen' href="static/styles/home.css">
+    <link rel='stylesheet' type='text/css' media='screen' href="static/styles/about.css">
+    <script type="text/javascript" src="static\scripts\about.js"></script>
 </head>
 
-<div style="height: 280px;">
-    <div class="header-container">
-        temp about
+<div class="about-container">
+    <div class="tabs-container">
+        <div class="site-about active" onclick="switchTab('site')"><span>Site about</span></div>
+        <div class="dev-about" onclick="switchTab('dev')"><span>About me</span></div>
     </div>
-
+    <div class="tab-content">
+        <div class="content-site">
+            test
+        </div>
+        <div class="content-dev">
+            test2
+        </div>
+    </div>
 </div>
 {% endblock %}
