@@ -13,10 +13,25 @@
     </div>
     <div class="tab-content">
         <div class="content-site">
-            test
+            <p>This site is a front-end of a Python Flask project, although not meant to be publicly open and use by a lot of people it was developed with that in mind. Every ‘POST’ to the server is first checked by the JavaScript to prevent needles requests
+                to the server. Some ‘POST’s are done by jQuery to ‘live’ up date the page when needed. </p>
+            <p>Page ‘live’ update is used in the register page, to check if the ID and E-mail are free, and in the ToDo List page when logged in for every change to the list to prevent reloading the page every time and there for make it easy for user use
+                and the server to not ‘GET’ the page over and over again. This part took some time in reading research and testing but at the end the right combo site and server sides was found.</p>
+            <p>The site use Flask-Jinja build in flow control (if, while, for…) function in the HTML of the rendered template to show the relevant info or use the logged or not logged page variant. This is used to get and show flash massages to the user
+                from checks the server have done, and for multi- access pages to switch the buttons. In the ToDo List page the ‘if’ capability is used to switch from the logged and not logged page, and the ‘for’ is used to load the user list from the
+                server as he load in the page.</p>
+            <p>The work on the front-end forced me to dive deep in to learning HTML, CSS, JavaScript and jQuery by reading documentations, guides and doing a lot of test. Not only showing I can learn new things by myself, but showing I can learn new thing
+                without any real background in the subject.</p>
+            <div class="source">
+                <span class='source-title'>Media sources:</span>
+                <div class="source-list">
+                    <li>Some background originally Designed by <a href="https://www.freepik.com/">freepik</a></li>
+                    <li>Some icons originally Designed by <a href="https://icons8.com/">icons8</a></li>
+                </div>
+            </div>
         </div>
         <div class="content-dev" hidden>
-            test2
+
         </div>
     </div>
 </div>

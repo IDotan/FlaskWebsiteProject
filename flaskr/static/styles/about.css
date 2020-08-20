@@ -31,10 +31,12 @@ body {
 
 .tabs-container div.site-about {
     background-color: rgba(193, 193, 193, 0.7);
+    font-weight: bold;
 }
 
 .tabs-container div.dev-about {
     background-color: rgba(76, 152, 175, 0.7);
+    font-weight: bold;
 }
 
 .tabs-container .site-about:hover:not(.active) {
@@ -58,5 +60,21 @@ body {
     padding-bottom: 40px;
     padding-left: 15px;
     padding-top: 10px;
+    padding-right: 15px;
     box-shadow: 10px 5px 5px 0px rgba(61, 45, 45, 0.35);
+}
+
+.source {
+    padding-top: 35px;
+}
+
+.source .source-title {
+    text-decoration: underline;
+    font-size: 18px;
+}
+
+.source .source-list {
+    position: relative;
+    left: 25px;
+    font-size: 15px;
 }

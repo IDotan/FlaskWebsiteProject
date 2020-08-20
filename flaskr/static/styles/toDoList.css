@@ -75,6 +75,8 @@ li.marked::before {
     display: flex;
     margin-left: auto;
     align-self: center;
+    left: 10px;
+    position: relative;
 }
 
 .eraser {
