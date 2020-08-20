@@ -27,6 +27,7 @@ body {
     width: 50%;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
+    box-shadow: 10px 0px 5px 0px rgba(61, 45, 45, 0.35);
 }
 
 .tabs-container div.site-about {
@@ -37,11 +38,11 @@ body {
     background-color: rgba(76, 152, 175, 0.7);
 }
 
-.tabs-container :hover:not(.dev-about):not(.active):not(span) {
+.tabs-container .site-about:hover:not(.active) {
     background-color: rgba(193, 193, 193, 0.95);
 }
 
-.tabs-container :hover:not(.site-about):not(.active):not(span) {
+.tabs-container .dev-about:hover:not(.active) {
     background-color: rgba(76, 152, 175, 0.95);
 }
 
@@ -57,4 +58,5 @@ body {
     display: block;
     border-top: black 1px solid;
     padding-bottom: 40px;
+    box-shadow: 10px 10px 5px 0px rgba(61, 45, 45, 0.35);
 }
