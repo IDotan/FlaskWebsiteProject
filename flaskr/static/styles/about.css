@@ -15,7 +15,6 @@ body {
 
 .tabs-container {
     display: flex;
-    justify-content: space-evenly;
     text-align: center;
     height: 55px;
     gap: 20px;
@@ -27,7 +26,7 @@ body {
     width: 50%;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    box-shadow: 10px 0px 5px 0px rgba(61, 45, 45, 0.35);
+    box-shadow: 10px 5px 5px 0px rgba(61, 45, 45, 0.35);
 }
 
 .tabs-container div.site-about {
@@ -53,10 +52,11 @@ body {
 }
 
 .tab-content {
+    position: relative;
     background-color: rgba(193, 193, 193, 0.7);
-    width: 100%;
-    display: block;
     border-top: black 1px solid;
     padding-bottom: 40px;
-    box-shadow: 10px 10px 5px 0px rgba(61, 45, 45, 0.35);
+    padding-left: 15px;
+    padding-top: 10px;
+    box-shadow: 10px 5px 5px 0px rgba(61, 45, 45, 0.35);
 }
