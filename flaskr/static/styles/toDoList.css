@@ -44,12 +44,12 @@
     border-bottom: 1.5px dashed;
 }
 
-.marked>.todo-item:hover {
+.marked:not(.clicked)>.todo-item:hover {
     text-decoration: line-through;
     text-decoration-color: rgba(0, 0, 0, 0.35);
 }
 
-.not-marked>.todo-item:hover {
+.not-marked:not(.clicked)>.todo-item:hover {
     text-decoration: line-through;
     text-decoration-color: rgba(0, 0, 0, 0.65);
 }

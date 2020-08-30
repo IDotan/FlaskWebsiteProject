@@ -24,9 +24,9 @@
             <ul class="list-items ">
                 {% for todo in list_itemss %}
                 <li class='{% if todo.complete %}marked{% else %}not-marked{% endif %}' id="task" note_id="{{todo.id}}">
-                    <span class="completeJq-item todo-item">{{ todo.text }}</span>
+                    <span class="completeJq-item todo-item" onmouseout="textHoverOut(this)">{{ todo.text }}</span>
                     <div class="list-item-button-continer">
-                        <input type="image" src='/static/img/checkmark.png' value="Complete" title="Toggle status" class="completeJq complete-button" onmouseover="completeHover(this)" onmouseout="buttonHoverOut(this)">
+                        <input type="image" src='/static/img/checkmark.png' value="Complete" title="Toggle status" class="completeJq complete-button" onmouseover="completeHover(this)" onmouseout="buttonHoverOut(this)" onclick="buttonHoverOut(this)">
                         <input class="deleteJq eraser" type="image" src='/static/img/eraser.png' title="Delete" value="Delete" onmouseover="eraseHover(this)" onmouseout="buttonHoverOut(this)">
                     </div>
                 </li>
@@ -42,5 +42,4 @@
     <script type="text/javascript" src="static\scripts\toDoList.js"></script>
 </body>
 
-</html>
 {% endblock %}
