@@ -35,4 +35,7 @@ def new_friend():
 @main.route('/about')
 @check_session
 def about():
-    return render_template('about.html')
+    name = ""
+    if g.user is not None:
+        name = g.user.first_name
+    return render_template('about.html', name=name)
