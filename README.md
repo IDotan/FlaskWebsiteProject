@@ -7,7 +7,7 @@ work in progress
   
   set up the environment:  
   ```
-  $ py -m venv venv
+  py -m venv venv
   ```
   starting the environment:  
   ```
