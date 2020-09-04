@@ -34,6 +34,24 @@ work in progress
   
 </details>
 
+<details>
+  <summary>test & coverage</summary>
+  
+  to run basic pytest:
+  ```
+  pytest
+  ```
+  to use coverage run:
+  ```
+  coverage run -m pytest
+  ```
+  when the test above is done:
+  ```
+  coverage html
+  ```
+  this will create a new folder 'htmlcov' in the project dic, in 'htmlcov' open index.html to see full data of the coverage.
+</details>
+
 ### completed:
 * site skeleton, and basic functionality.
 * tests and full coverage.
