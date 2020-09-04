@@ -78,3 +78,19 @@ body {
     left: 25px;
     font-size: 15px;
 }
+
+.content-dev {
+    grid-template-columns: auto auto;
+    grid-gap: 50px;
+}
+
+.LI-profile-badge {
+    position: relative;
+    top: 25px;
+}
+
+.linkedin-badge>span {
+    font-size: 15px;
+    position: relative;
+    top: 25px;
+}
