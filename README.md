@@ -41,6 +41,7 @@ work in progress
   ```
   pytest
   ```
+  ---
   to use coverage run:
   ```
   coverage run -m pytest
