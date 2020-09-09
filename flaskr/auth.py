@@ -8,6 +8,7 @@ from flaskr.python_scripts.register_validator import check_form_data, valid_user
 from .models import User
 from passlib.hash import sha256_crypt
 from flaskr.python_scripts.random_pic_picker import pick_my_pic
+from web_launch import email_for_password_reset
 
 __author__ = "Itai Dotan"
 

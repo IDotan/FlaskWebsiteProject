@@ -4,6 +4,9 @@ import os
 
 __author__ = "Itai Dotan"
 
+"""global to indicate if there is a email to use for password reset"""
+email_for_password_reset = False
+
 
 def check_setting_ini_exist():
     """
@@ -14,9 +17,10 @@ def check_setting_ini_exist():
         with open('setting.ini', 'w') as file:
             file.write('login time =\n')
             file.write('public =\n')
-            file.write('debug  =\n')
-            file.write('email  =\n')
-            file.write('email password  =\n')
+            file.write('debug =\n')
+            file.write('# gmail account to use for password reset\n')
+            file.write('email =\n')
+            file.write('email password =\n')
 
 
 def clean_setting_line(line):
