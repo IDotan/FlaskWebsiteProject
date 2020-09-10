@@ -8,8 +8,8 @@ from flaskr.python_scripts.register_validator import check_form_data, valid_user
 from .models import User
 from passlib.hash import sha256_crypt
 from flaskr.python_scripts.random_pic_picker import pick_my_pic
-from web_launch import email_for_password_reset
 from flaskr.python_scripts.send_reset_code import psw_reset_setup
+from os import path
 __author__ = "Itai Dotan"
 
 auth = Blueprint('auth', __name__)
@@ -51,7 +51,7 @@ def login():
     | render login.html
     :return: render template login.html
     """
-    if email_for_password_reset:
+    if path.exists('email.ini'):
         reset = True
     else:
         reset = False
