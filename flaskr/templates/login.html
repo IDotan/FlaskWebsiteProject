@@ -32,5 +32,10 @@
             </div>
         </form>
     </div>
+    {% if reset == True %}
+    <div class="reset-password">
+        <a href="{{ url_for('auth.password_reset') }}">forgot password</a>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

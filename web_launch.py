@@ -5,7 +5,10 @@ import os
 __author__ = "Itai Dotan"
 
 """global to indicate if there is a email to use for password reset"""
-email_for_password_reset = False
+email_for_password_reset = True
+"""global for the email and its password to not rescan the setting.ini"""
+email_to_send_code_from = ''
+email_to_send_code_from_psw = ''
 
 
 def check_setting_ini_exist():
@@ -15,17 +18,27 @@ def check_setting_ini_exist():
     """
     if not os.path.exists('setting.ini'):
         with open('setting.ini', 'w') as file:
-            file.write('login time =\n')
+            file.write('login-timer =\n')
             file.write('public =\n')
             file.write('debug =\n')
             file.write('# gmail account to use for password reset\n')
             file.write('email =\n')
-            file.write('email password =\n')
+            file.write('email-password =\n')
 
 
 def clean_setting_line(line):
     """
-    | clean the given file to include only the needed parm
+    | clean the given line from spaces
+    :param line: line to clean
+    :return: line with out spaces
+    """
+    temp_line = line.replace(' ', '')
+    return temp_line
+
+
+def clean_setting_line_input(line):
+    """
+    | clean the given line input to include only the needed parm
     :param line: line to clean
     :return: cleaned parm
     """
@@ -87,15 +100,24 @@ def get_settings():
     with open('setting.ini', 'r') as file:
         lines = file.readlines()
         for line in lines:
-            if 'login time=' in line or 'login time =' in line:
-                time_int = clean_setting_line(line)
+            line = clean_setting_line(line)
+            if 'login-timer=' in line:
+                time_int = clean_setting_line_input(line)
                 session_life_time_setting = get_login_time(time_int, session_life_time_setting)
-            elif 'public=' in line or 'public =' in line:
-                temp_host = clean_setting_line(line)
+            elif 'public=' in line:
+                temp_host = clean_setting_line_input(line)
                 host_setting = get_host_setting(temp_host)
-            elif 'debug=' in line or 'debug =' in line:
-                temp_debug = clean_setting_line(line)
+            elif 'debug=' in line:
+                temp_debug = clean_setting_line_input(line)
                 debug_setting = get_debug_setting(temp_debug)
+            elif 'email=' in line:
+                temp_mail = clean_setting_line_input(line)
+                global email_to_send_code_from
+                email_to_send_code_from = temp_mail
+            elif 'email-password=' in line:
+                temp_mail_psw = clean_setting_line_input(line)
+                global email_to_send_code_from_psw
+                email_to_send_code_from_psw = temp_mail_psw
     return session_life_time_setting, host_setting, debug_setting
 
 

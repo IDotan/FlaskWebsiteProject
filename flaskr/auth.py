@@ -9,7 +9,7 @@ from .models import User
 from passlib.hash import sha256_crypt
 from flaskr.python_scripts.random_pic_picker import pick_my_pic
 from web_launch import email_for_password_reset
-
+from flaskr.python_scripts.send_reset_code import psw_reset_setup
 __author__ = "Itai Dotan"
 
 auth = Blueprint('auth', __name__)
@@ -51,7 +51,11 @@ def login():
     | render login.html
     :return: render template login.html
     """
-    return render_template('login.html')
+    if email_for_password_reset:
+        reset = True
+    else:
+        reset = False
+    return render_template('login.html', reset=reset)
 
 
 @auth.route('/login', methods=['POST'])
@@ -73,6 +77,27 @@ def login_post():
             g.user = user
             return redirect(url_for("main.index"))
     return render_template('login.html', error="Wrong login information")
+
+
+@auth.route('/passwordRest')
+def password_reset():
+    """
+    | render password_reset.html
+    :return: render template 'password_reset.html'
+    """
+    return render_template('password_reset.html')
+
+
+@auth.route('/passwordRest', methods=['POST'])
+def password_reset_send():
+    mail = request.form['email']
+    user = User.query.filter_by(email=mail).first()
+    if not user:
+        error = 'This E-mail is not registered'
+        return render_template('password_reset.html', error=error)
+    else:
+        psw_reset_setup(user)
+        return render_template('password_reset.html', sent='yep', sent_to=mail)
 
 
 @auth.route('/register')
