@@ -83,6 +83,11 @@ def get_debug_setting(setting):
         return False
 
 
+def delete_email_ini_file():
+    if os.path.exists('email.ini'):
+        os.remove('email.ini')
+
+
 def get_settings():
     """
     | get the setting to use for the flask launch
@@ -91,6 +96,7 @@ def get_settings():
     session_life_time_setting = timedelta(hours=1)
     host_setting = ''
     debug_setting = False
+    delete_email_ini = True
     with open('setting.ini', 'r') as file:
         with open('email.ini', 'w') as mail_file:
             lines = file.readlines()
@@ -107,10 +113,17 @@ def get_settings():
                     debug_setting = get_debug_setting(temp_debug)
                 elif 'email=' in line:
                     temp_mail = clean_setting_line_input(line)
-                    mail_file.write(f'{temp_mail},')
+                    if temp_mail:
+                        mail_file.write(f'{temp_mail},')
+                        delete_email_ini = False
                 elif 'email-password=' in line:
                     temp_mail_psw = clean_setting_line_input(line)
-                    mail_file.write(f'{temp_mail_psw}')
+                    if temp_mail_psw:
+                        mail_file.write(f'{temp_mail_psw}')
+                    else:
+                        delete_email_ini = True
+    if delete_email_ini:
+        delete_email_ini_file()
     return session_life_time_setting, host_setting, debug_setting
 
 

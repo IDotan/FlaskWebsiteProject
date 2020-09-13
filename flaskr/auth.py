@@ -10,6 +10,8 @@ from passlib.hash import sha256_crypt
 from flaskr.python_scripts.random_pic_picker import pick_my_pic
 from flaskr.python_scripts.send_reset_code import psw_reset_setup
 from os import path
+
+
 __author__ = "Itai Dotan"
 
 auth = Blueprint('auth', __name__)
