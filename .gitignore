@@ -1,8 +1,5 @@
 venv/
 /SQLiteDatabaseBrowserPortable/
-/.idea/workspace.xml
-/.idea/tasks.xml
-/.idea/*.iws
 __pycache__/
 .pytest_cache/
 .coverage
@@ -12,3 +9,4 @@ htmlcov/
 /flaskr/test.txt
 setting.ini
 email.ini
+.idea
