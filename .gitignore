@@ -9,3 +9,4 @@ htmlcov/
 /flaskr/test.txt
 setting.ini
 email.ini
+.idea
