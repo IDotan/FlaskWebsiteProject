@@ -5,6 +5,8 @@ __pycache__/
 .coverage
 htmlcov/
 /flaskr/test_this.db
+/flaskr/users.db
+/flaskr/users_toDo.db
 /flaskr/static/img/user_pic/*
 /flaskr/test.txt
 setting.ini

@@ -19,6 +19,7 @@ def app():
     app = create_app()
     app.config['TESTING'] = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test_this.db'
+    app.config['SQLALCHEMY_BINDS'] = {'UsersToDo': 'sqlite:///test_toDo.db'}
     with app.test_client() as client:
         app.teardown_request
         yield client
