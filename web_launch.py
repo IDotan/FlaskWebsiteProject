@@ -65,10 +65,9 @@ def get_host_setting(setting):
     :param setting: given setting to check against
     :return: '0.0.0.0' for public access
     """
-    if setting == 'true' or setting == 'True':
+    if setting.lower() == 'true':
         return '0.0.0.0'
-    elif setting == 'false' or setting == 'False':
-        return ''
+    return ''
 
 
 def get_debug_setting(setting):
@@ -77,21 +76,23 @@ def get_debug_setting(setting):
     :param setting: setting to check against
     :return: true when using debug mod
     """
-    if setting == 'true' or setting == 'True':
+    if setting.lower() == 'true':
         return True
-    elif setting == 'false' or setting == 'False':
-        return False
+    return False
 
 
 def delete_email_ini_file():
+    """
+    | delete email.ini if it exists
+    """
     if os.path.exists('email.ini'):
         os.remove('email.ini')
 
 
 def get_settings():
     """
-    | get the setting to use for the flask launch
-    :return:
+    | get the setting to use for the flask app
+    :return: session_life_time_setting, host_setting, debug_setting
     """
     session_life_time_setting = timedelta(hours=1)
     host_setting = ''

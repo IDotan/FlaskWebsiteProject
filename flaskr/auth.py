@@ -87,19 +87,23 @@ def password_reset():
     | render password_reset.html
     :return: render template 'password_reset.html'
     """
-    return render_template('password_reset.html')
+    if path.exists('email.ini'):
+        return render_template('password_reset.html')
+    return redirect(url_for('auth.login'))
 
 
 @auth.route('/passwordRest', methods=['POST'])
 def password_reset_send():
-    mail = request.form['email']
-    user = User.query.filter_by(email=mail).first()
-    if not user:
-        error = 'This E-mail is not registered'
-        return render_template('password_reset.html', error=error)
-    else:
-        psw_reset_setup(user)
-        return render_template('password_reset.html', sent='yep', sent_to=mail)
+    if path.exists('email.ini'):
+        mail = request.form['email']
+        user = User.query.filter_by(email=mail).first()
+        if not user:
+            error = 'This E-mail is not registered'
+            return render_template('password_reset.html', error=error)
+        else:
+            psw_reset_setup(user)
+            return render_template('password_reset.html', sent='yep', sent_to=mail)
+    return redirect(url_for('auth.login'))
 
 
 @auth.route('/register')
