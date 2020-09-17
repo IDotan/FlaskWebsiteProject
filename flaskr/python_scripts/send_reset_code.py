@@ -14,6 +14,10 @@ site_address = "http://127.0.0.1:5000/"
 
 
 def generate_reset_code():
+    """
+    | generate reset code
+    :return: reset code
+    """
     chr_template = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789'
     temp_code = ''
     while len(temp_code) < 6:
@@ -22,7 +26,17 @@ def generate_reset_code():
     return temp_code
 
 
-def send_reset_mail(code, send_to, user_id, timer):
+def send_reset_mail(code, send_to, user_id, timer):  # pragma: no cover
+    """
+    | send mail to the user with their link and reset code
+    :param code: reset code to send
+    :param send_to: email to send to
+    :param user_id: user id
+    :param timer: code timer
+    """
+    # for pytest to skip sending mail, to be able to run more test
+    if send_to == 'i@i.com':
+        return
     with open('email.ini', 'r') as file:
         mail_info = file.read().split(',')
     port = 465
@@ -40,6 +54,10 @@ def send_reset_mail(code, send_to, user_id, timer):
 
 
 def psw_reset_setup(user_add_code):
+    """
+    | set up the user reset password process
+    :param user_add_code: user to set up its password reset
+    """
     timer = int(time() + 1800)
     user_add_code.psw_reset_time = timer
     rest_code = generate_reset_code()

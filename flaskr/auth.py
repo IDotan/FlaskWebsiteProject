@@ -115,7 +115,7 @@ def password_reset_2nd_phase(userinfo):
     if user:
         if str(user.psw_reset_time)[::2] == check_link and time() < user.psw_reset_time:
             # :todo create the html file
-            return "render code post page"
+            return '<h1>place holder</h1>'
     flash("Invalid link or link timed out")
     return redirect(url_for('auth.password_reset_send'))
 

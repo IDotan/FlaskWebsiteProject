@@ -11,4 +11,5 @@ htmlcov/
 /flaskr/test.txt
 setting.ini
 email.ini
+email_bck.ini
 .idea

@@ -1,3 +1,6 @@
+from flaskr.models import User, users_db
+
+
 __author__ = "Itai Dotan"
 
 
@@ -203,5 +206,63 @@ def test_register_page_post_valid(client):
 
 
 # password reset
+def test_psw_reset_no_link_at_login(client):
+    rv = client.get('/login')
+    assert b'forgot password' not in rv.data
+
+
+def test_psw_reset_page(client):
+    rv = client.get('/passwordRest', follow_redirects=True)
+    assert b'Remember me' in rv.data
+    rv = client.post('/passwordRest', follow_redirects=True)
+    assert b'Remember me' in rv.data
+    with open('email.ini', 'w') as file:
+        file.write('test,test')
+    rv = client.get('/passwordRest', follow_redirects=True)
+    assert b'Send password reset code' in rv.data
+
+
+def test_psw_reset_link_at_login(client):
+    rv = client.get('/login')
+    assert b'forgot password' in rv.data
+
+
+def test_psw_reset_code_send_not_registered(client):
+    rv = client.post('/passwordRest', data=dict(email='i3@i.com'))
+    assert b'This E-mail is not registered' in rv.data
+
+
 def test_psw_reset_code_send(client):
     rv = client.post('/passwordRest', data=dict(email='i@i.com'))
+    assert b'E-mail with a reset code was sent to' in rv.data
+
+
+def test_psw_reset_invalid_link_user(client):
+    rv = client.get('/passwordRest/h$45', follow_redirects=True)
+    assert b'Invalid link or link timed out' in rv.data
+
+
+def test_psw_reset_invalid_link_code(client):
+    rv = client.get('/passwordRest/1$45', follow_redirects=True)
+    assert b'Invalid link or link timed out' in rv.data
+
+
+def test_psw_reset_valid_link(client):
+    client.get('/login')
+    timer = User.query.filter_by(id=1).first().psw_reset_time
+    link_timer_part = (str(timer))[::2]
+    rv = client.get(f'/passwordRest/1${link_timer_part}')
+    # :todo change test when there is an html page
+    assert b'place holder' in rv.data
+
+
+def test_psw_reset_link_timed_out(client):
+    client.get('/login')
+    user = User.query.filter_by(id=1).first()
+    old_timer = user.psw_reset_time
+    user.psw_reset_time = old_timer - 1900
+    users_db.session.commit()
+    rv = client.get(f'/passwordRest/1${user.psw_reset_time}', follow_redirects=True)
+    assert b'Invalid link or link timed out' in rv.data
+    user.psw_reset_time = old_timer
+    users_db.session.commit()

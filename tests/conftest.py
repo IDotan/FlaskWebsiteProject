@@ -8,10 +8,15 @@ __author__ = "Itai Dotan"
 
 def pytest_sessionstart():
     shutil.copy(r"./flaskr/test.db", r"./flaskr/test_this.db")
+    if os.path.exists('email.ini'):
+        os.rename('email.ini', 'email_bck.ini')
 
 
 def pytest_sessionfinish():
     os.remove(r"./flaskr/test_this.db")
+    os.remove('email.ini')
+    if os.path.exists('email_bck.ini'):
+        os.rename('email_bck.ini', 'email.ini')
 
 
 @pytest.fixture
