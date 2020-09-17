@@ -22,7 +22,7 @@ def generate_reset_code():
     return temp_code
 
 
-def send_reset_mail(code, send_to, user_id):
+def send_reset_mail(code, send_to, user_id, timer):
     with open('email.ini', 'r') as file:
         mail_info = file.read().split(',')
     port = 465
@@ -31,7 +31,8 @@ def send_reset_mail(code, send_to, user_id):
     Subject: Itai's Flask project password reset code
 
     Your reset code is {code}.
-    To use this code go to {site_address}/link#{user_id}"""
+    To use this code go to {site_address}/{user_id}${str(timer)[::2]}
+    Your rest code and link will be available for 30min."""
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
         server.login(mail_info[0], mail_info[1])
@@ -39,8 +40,9 @@ def send_reset_mail(code, send_to, user_id):
 
 
 def psw_reset_setup(user_add_code):
-    user_add_code.psw_reset_time = int(time() + 1800)
+    timer = int(time() + 1800)
+    user_add_code.psw_reset_time = timer
     rest_code = generate_reset_code()
     user_add_code.psw_reset = rest_code
     users_db.session.commit()
-    send_reset_mail(rest_code, user_add_code.email, user_add_code.id)
+    send_reset_mail(rest_code, user_add_code.email, user_add_code.id, timer)

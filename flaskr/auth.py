@@ -10,7 +10,7 @@ from passlib.hash import sha256_crypt
 from flaskr.python_scripts.random_pic_picker import pick_my_pic
 from flaskr.python_scripts.send_reset_code import psw_reset_setup
 from os import path
-
+from time import time
 
 __author__ = "Itai Dotan"
 
@@ -104,6 +104,20 @@ def password_reset_send():
             psw_reset_setup(user)
             return render_template('password_reset.html', sent='yep', sent_to=mail)
     return redirect(url_for('auth.login'))
+
+
+@auth.route('/passwordRest/<userinfo>')
+def password_reset_2nd_phase(userinfo):
+    temp = userinfo.split('$')
+    check_id = temp[0]
+    check_link = temp[1]
+    user = User.query.filter_by(id=check_id).first()
+    if user:
+        if str(user.psw_reset_time)[::2] == check_link and time() < user.psw_reset_time:
+            # :todo create the html file
+            return "render code post page"
+    flash("Invalid link or link timed out")
+    return redirect(url_for('auth.password_reset_send'))
 
 
 @auth.route('/register')

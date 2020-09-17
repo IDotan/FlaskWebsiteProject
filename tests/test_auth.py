@@ -200,3 +200,8 @@ def test_register_page_post_valid(client):
     rv = client.post('/register', data=dict(username="itai3", psw="Hello*1234", email="test@test.com", fname='name',
                                             lname="name", gender=1), follow_redirects=True)
     assert b'Welcome name' in rv.data
+
+
+# password reset
+def test_psw_reset_code_send(client):
+    rv = client.post('/passwordRest', data=dict(email='i@i.com'))
