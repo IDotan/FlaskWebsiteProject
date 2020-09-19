@@ -55,10 +55,10 @@ function isOkUser(u) {
 const psw_input = document.getElementById('psw');
 const psw_error = document.getElementById('pswError');
 psw_input.addEventListener('keyup', function(event) {
-    var userCheck = isOkPass(psw_input.value);
-    if (userCheck.result == false) {
+    var pswCheck = isOkPass(psw_input.value);
+    if (pswCheck.result == false) {
         //show the error
-        psw_error.innerText = userCheck.error;
+        psw_error.innerText = pswCheck.error;
         psw_error.hidden = false;
     } else {
         psw_error.innerText = "";

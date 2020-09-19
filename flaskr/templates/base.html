@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Flask Web Project</title>
-    <link rel='stylesheet' type='text/css' media='screen' href="static/styles/navbar.css">
-    <link rel="shortcut icon" href="static\img\site icon.png">
+    <link rel='stylesheet' type='text/css' media='screen' href="{{ url_for('static', filename='styles/navbar.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/site icon.png') }}">
 </head>
 
 <body>
@@ -55,7 +55,7 @@
     <section class="open-page">
         {% block content %} {% endblock %}
     </section>
-    <script type="text/javascript" src="static\scripts\navbar.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/navbar.js') }}"></script>
 </body>
 
 </html>

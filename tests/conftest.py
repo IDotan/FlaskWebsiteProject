@@ -14,7 +14,8 @@ def pytest_sessionstart():
 
 def pytest_sessionfinish():
     os.remove(r"./flaskr/test_this.db")
-    os.remove('email.ini')
+    if os.path.exists('email.ini'):
+        os.remove('email.ini')
     if os.path.exists('email_bck.ini'):
         os.rename('email_bck.ini', 'email.ini')
 
