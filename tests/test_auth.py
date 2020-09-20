@@ -252,8 +252,7 @@ def test_psw_reset_valid_link(client):
     timer = User.query.filter_by(id=1).first().psw_reset_time
     link_timer_part = (str(timer))[::2]
     rv = client.get(f'/passwordRest/1${link_timer_part}')
-    # :todo change test when there is an html page
-    assert b'place holder' in rv.data
+    assert b'Enter reset code:' in rv.data
 
 
 def test_psw_reset_link_timed_out(client):
@@ -264,5 +263,52 @@ def test_psw_reset_link_timed_out(client):
     users_db.session.commit()
     rv = client.get(f'/passwordRest/1${user.psw_reset_time}', follow_redirects=True)
     assert b'Invalid link or link timed out' in rv.data
-    user.psw_reset_time = old_timer
+    rv = client.post(f'/passwordRest/1${user.psw_reset_time}', data=dict(code='nope'), follow_redirects=True)
+    assert b'Invalid link or link timed out' in rv.data
+
+
+def test_psw_reset_code_input_invalid(client):
+    client.post('/passwordRest', data=dict(email='i@i.com'))
+    timer = User.query.filter_by(id=1).first().psw_reset_time
+    link_timer_part = (str(timer))[::2]
+    rv = client.post(f'/passwordRest/1${link_timer_part}', data=dict(code='nope'), follow_redirects=True)
+    assert b'Incorrect reset code' in rv.data
+    code = User.query.filter_by(id=1).first().psw_reset
+    rv = client.post(f'/passwordRest/1${link_timer_part}', data=dict(code=code))
+    assert b'Enter new password:' in rv.data
+
+
+def test_psw_reset_password_invalid(client):
+    client.post('/passwordRest', data=dict(email='i@i.com'))
+    timer = User.query.filter_by(id=1).first().psw_reset_time
+    link_timer_part = (str(timer))[::2]
+    rv = client.post(f'/passwordRest/1${link_timer_part}', data=dict(psw='Test*1234', repsw='nope'))
+    assert b'Reentered password don&#39;t match' in rv.data
+    rv = client.post(f'/passwordRest/1${link_timer_part}', data=dict(psw='test', repsw='test'))
+    assert b'Invalid password, enable site script for more info' in rv.data
+
+
+def test_psw_reset_password_skipping_code_post(client):
+    client.post('/passwordRest', data=dict(email='i@i.com'))
+    timer = User.query.filter_by(id=1).first().psw_reset_time
+    link_timer_part = (str(timer))[::2]
+    psw = "Test*1234"
+    rv = client.post(f'/passwordRest/1${link_timer_part}', data=dict(psw=psw, repsw=psw), follow_redirects=True)
+    assert b'Invalid link or link timed out' in rv.data
+
+
+def test_psw_reset_valid_process(client):
+    client.post('/passwordRest', data=dict(email='i@i.com'))
+    old_psw = User.query.filter_by(id=1).first().password
+    timer = User.query.filter_by(id=1).first().psw_reset_time
+    link_timer_part = (str(timer))[::2]
+    code = User.query.filter_by(id=1).first().psw_reset
+    client.post(f'/passwordRest/1${link_timer_part}', data=dict(code=code))
+    psw = "Test*1234"
+    rv = client.post(f'/passwordRest/1${link_timer_part}', data=dict(psw=psw, repsw=psw), follow_redirects=True)
+    assert b'Remember me' in rv.data
+    rv = client.post('/login', data=dict(username="itai2", psw=psw, remember="on"), follow_redirects=True)
+    assert b'Good to see you again, itai' in rv.data
+    # set the password back for the rest of the test using the original
+    User.query.filter_by(id=1).first().password = old_psw
     users_db.session.commit()

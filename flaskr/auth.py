@@ -4,7 +4,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session, g
 from functools import wraps
 from . import users_db
-from flaskr.python_scripts.register_validator import check_form_data, valid_user, valid_email
+from flaskr.python_scripts.register_validator import check_form_data, valid_user, valid_email, valid_psw
 from .models import User
 from passlib.hash import sha256_crypt
 from flaskr.python_scripts.random_pic_picker import pick_my_pic
@@ -114,10 +114,49 @@ def password_reset_2nd_phase(userinfo):
     user = User.query.filter_by(id=check_id).first()
     if user:
         if str(user.psw_reset_time)[::2] == check_link and time() < user.psw_reset_time:
-            # :todo create the html file
-            return render_template('password_reset_2nd_phase.html', phase='psw')
+            return render_template('password_reset_2nd_phase.html', phase='code')
     flash("Invalid link or link timed out")
     return redirect(url_for('auth.password_reset_send'))
+
+
+@auth.route('/passwordRest/<userinfo>', methods=['POST'])
+def password_reset_2nd_phase_code_post(userinfo):
+    given_user = userinfo.split('$')[0]
+    try:
+        reset_code = request.form['code']
+    except:
+        reset_code = None
+    user = User.query.filter_by(id=given_user).first()
+    if user.psw_reset_time < time():
+        flash("Invalid link or link timed out")
+        return redirect(url_for('auth.password_reset_send'))
+    if reset_code:
+        if reset_code == user.psw_reset:
+            user.psw_reset = 123
+            # set the user open to password change for 5 min
+            user.psw_reset_time = int(time() + 300)
+            users_db.session.commit()
+            return render_template('password_reset_2nd_phase.html', phase='psw')
+        else:
+            error = "Incorrect reset code"
+            return render_template('password_reset_2nd_phase.html', phase='code', error=error)
+    else:
+        psw = request.form['psw']
+        re_psw = request.form['repsw']
+        if psw != re_psw:
+            error = "Reentered password don't match"
+            return render_template('password_reset_2nd_phase.html', phase='psw', error=error)
+        if not valid_psw(psw):
+            error = "Invalid password, enable site script for more info"
+            return render_template('password_reset_2nd_phase.html', phase='psw', error=error)
+        if user.psw_reset == str(123):
+            user.password = sha256_crypt.hash(psw)
+            user.psw_reset_time, user.psw_reset == ''
+            users_db.session.commit()
+            return redirect(url_for('auth.login'))
+        else:
+            flash("Invalid link or link timed out")
+            return redirect(url_for('auth.password_reset_send'))
 
 
 @auth.route('/register')

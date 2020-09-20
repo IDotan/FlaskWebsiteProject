@@ -58,7 +58,7 @@ function pswMatch() {
     const psw_error_match = document.getElementById('pswErrorMatch');
     const psw_input = document.getElementById('psw');
     if (re_psw.value != psw_input.value) {
-        psw_error_match.innerText = "Inputs dont match";
+        psw_error_match.innerText = "Reentered password don't match";
         psw_error_match.hidden = false;
         return false;
     } else {
