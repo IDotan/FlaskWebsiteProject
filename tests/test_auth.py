@@ -306,9 +306,11 @@ def test_psw_reset_valid_process(client):
     client.post(f'/passwordRest/1${link_timer_part}', data=dict(code=code))
     psw = "Test*1234"
     rv = client.post(f'/passwordRest/1${link_timer_part}', data=dict(psw=psw, repsw=psw), follow_redirects=True)
-    assert b'Remember me' in rv.data
+    assert b'Your password was changed.' in rv.data
     rv = client.post('/login', data=dict(username="itai2", psw=psw, remember="on"), follow_redirects=True)
     assert b'Good to see you again, itai' in rv.data
     # set the password back for the rest of the test using the original
     User.query.filter_by(id=1).first().password = old_psw
     users_db.session.commit()
+    rv = client.post('/login', data=dict(username="itai2", psw="Hello*1234", remember="on"), follow_redirects=True)
+    assert b'Good to see you again, itai' in rv.data

@@ -153,10 +153,15 @@ def password_reset_2nd_phase_code_post(userinfo):
             user.password = sha256_crypt.hash(psw)
             user.psw_reset_time, user.psw_reset == ''
             users_db.session.commit()
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('auth.password_was_changed'))
         else:
             flash("Invalid link or link timed out")
             return redirect(url_for('auth.password_reset_send'))
+
+
+@auth.route('/passwordChanged')
+def password_was_changed():
+    return render_template('password_was_changed.html')
 
 
 @auth.route('/register')
