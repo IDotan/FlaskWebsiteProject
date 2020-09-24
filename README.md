@@ -60,7 +60,7 @@ work in progress
     <summary>Tests and full coverage.</summary>
 
     Pytest to all the function and pages so far and getting 100% coverage(all the script is being tested).
-    Every new function will be added to the tests when its added.
+    Every new function will be added to the tests when setting up the function.
     
    </details>
 
