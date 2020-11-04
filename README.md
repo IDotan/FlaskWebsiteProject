@@ -1,5 +1,5 @@
 # FlaskWebsiteProject
-work in progress
+on standby
 ### setup and run:
 <details>
   <summary>Setup</summary>
