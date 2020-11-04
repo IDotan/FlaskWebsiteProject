@@ -122,10 +122,12 @@ def password_reset_2nd_phase(userinfo):
 @auth.route('/passwordRest/<userinfo>', methods=['POST'])
 def password_reset_2nd_phase_code_post(userinfo):
     given_user = userinfo.split('$')[0]
-    try:
-        reset_code = request.form['code']
-    except:
-        reset_code = None
+    reset_code = request.form.get('code')
+    # old request way with not needed exception
+    # try:
+    #     reset_code = request.form['code']
+    # except:
+    #     reset_code = None
     user = User.query.filter_by(id=given_user).first()
     if user.psw_reset_time < time():
         flash("Invalid link or link timed out")
