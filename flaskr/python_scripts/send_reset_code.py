@@ -45,7 +45,7 @@ def send_reset_mail(code, send_to, user_id, timer):  # pragma: no cover
     Subject: Itai's Flask project password reset code
 
     Your reset code is {code}.
-    To use this code go to {site_address}/{user_id}${str(timer)[::2]}
+    To use this code go to {site_address}/passwordRest/{user_id}${str(timer)[::2]}
     Your rest code and link will be available for 30min."""
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
